@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Tagi Utils | cutagi-doc</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Tagi Utils" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Documentation Website for cuTAGI" />
+<meta property="og:description" content="Documentation Website for cuTAGI" />
+<link rel="canonical" href="https://www.tagiml.com/api/utils.html" />
+<meta property="og:url" content="https://www.tagiml.com/api/utils.html" />
+<meta property="og:site_name" content="cutagi-doc" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Tagi Utils" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"Tagi Utils","url":"https://www.tagiml.com/api/utils.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=397f24fafa7edc30ef45f787cd03ac3944d9a0d4">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://www.tagiml.com/">cutagi-doc</a></h1>
+      
+
+      <h1 id="tagi-utils">Tagi Utils</h1>
+
+<p><a href="https://github.com/miquelflorensa/cuTAGI/blob/main/pytagi/tagi_utils.py" class="github-link"></a></p>
+<div class="github-icon-container">
+    <img src="../images/GitHub-Mark.png" alt="GitHub" height="32" width="64" />
+  </div>
+<div class="github-text-container">
+    Github Source code
+  </div>
+<p>&lt;/a&gt;</p>
+
+<hr />
+
+<h1 id="the-hierarchicalsoftmax-class">The HierarchicalSoftmax class</h1>
+
+<p>Hierarchical softmax wrapper. Further details can be found <a href="https://building-babylon.net/2017/08/01/hierarchical-softmax">here</a>.</p>
+
+<h2 id="constructor-method"><em>constructor</em> method</h2>
+
+<blockquote>
+  <p>Constructor for the HierarchicalSoftmax class.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><strong>Note:</strong> The <code class="language-plaintext highlighter-rouge">super()</code> function is used to call the constructor of the base class <code class="language-plaintext highlighter-rouge">HrSoftmax</code>.</p>
+
+<hr />
+
+<h1 id="the-utils-class">The Utils class</h1>
+
+<p>Frontend for utility functions from C++/CUDA backend.</p>
+
+<h2 id="attributes">Attributes</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">backend_utils</code>: Utility functionalities from the backend.</li>
+</ul>
+
+<h2 id="constructor-method-1"><em>constructor</em> method</h2>
+
+<blockquote>
+  <p>Constructor for the Utils class.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+</code></pre></div></div>
+
+<h2 id="label_to_obs-method"><em>label_to_obs</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">label_to_obs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span>
+                 <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="s">"""Get observations and observation indices of the binary tree for classification"""</span>
+
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">labels</code>: Labels of the dataset as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_classes</code>: Total number of classes.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">obs</code>: Encoded observations of the labels as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">obs_idx</code>: Indices of the encoded observations in the output vector as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_obs</code>: Number of encoded observations.</li>
+</ul>
+
+<h2 id="label_to_one_hot-method"><em>label_to_one_hot</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">label_to_one_hot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="s">"""Get the one hot encoder for each class"""</span>
+
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">labels</code>: Labels of the dataset as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_classes</code>: Total number of classes.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">one_hot</code>: One hot encoder as a NumPy array.</li>
+</ul>
+
+<h2 id="load_mnist_images-method"><em>load_mnist_images</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">load_mnist_images</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">label_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                      <span class="n">num_images</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="s">"""Load mnist dataset"""</span>
+
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">image_file</code>: Location of the Mnist image file.</li>
+  <li><code class="language-plaintext highlighter-rouge">label_file</code>: Location of the Mnist label file.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_images</code>: Number of images to be loaded.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">images</code>: Image dataset as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">labels</code>: Label dataset as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_images</code>: Total number of images.</li>
+</ul>
+
+<h2 id="load_cifar_images-method"><em>load_cifar_images</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">load_cifar_images</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                      <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="s">"""Load cifar dataset"""</span>
+
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">image_file</code>: Location of the image file.</li>
+  <li><code class="language-plaintext highlighter-rouge">num</code>: Number of images to be loaded.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">images</code>: Image dataset as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">labels</code>: Label dataset as a NumPy array.</li>
+</ul>
+
+<p>Here are the method signatures for the additional methods:</p>
+
+<h2 id="get_labels-method"><em>get_labels</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ma</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Sa</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span>
+               <span class="n">hr_softmax</span><span class="p">:</span> <span class="n">HierarchicalSoftmax</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+               <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="s">"""Convert last layer's hidden state to labels"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ma</code>: Mean of activation units for the output layer as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">Sa</code>: Variance of activation units for the output layer as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">hr_softmax</code>: Hierarchical softmax.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_classes</code>: Total number of classes.</li>
+  <li><code class="language-plaintext highlighter-rouge">batch_size</code>: Number of data in a batch.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pred</code>: Label prediction as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">prob</code>: Probability for each label as a NumPy array.</li>
+</ul>
+
+<h2 id="get_errors-method"><em>get_errors</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ma</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Sa</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span>
+               <span class="n">hr_softmax</span><span class="p">:</span> <span class="n">HierarchicalSoftmax</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+               <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="s">"""Convert last layer's hidden state to labels"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ma</code>: Mean of activation units for the output layer as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">Sa</code>: Variance of activation units for the output layer as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">labels</code>: Label dataset as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">hr_softmax</code>: Hierarchical softmax.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_classes</code>: Total number of classes.</li>
+  <li><code class="language-plaintext highlighter-rouge">batch_size</code>: Number of data in a batch.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pred</code>: Label prediction as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">prob</code>: Probability for each label as a NumPy array.</li>
+</ul>
+
+<h2 id="get_hierarchical_softmax-method"><em>get_hierarchical_softmax</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_hierarchical_softmax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HierarchicalSoftmax</span><span class="p">:</span>
+    <span class="s">"""Convert labels to binary tree"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">num_classes</code>: Total number of classes.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">hr_softmax</code>: Hierarchical softmax.</li>
+</ul>
+
+<h2 id="obs_to_label_prob-method"><em>obs_to_label_prob</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">obs_to_label_prob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ma</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Sa</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span>
+                      <span class="n">hr_softmax</span><span class="p">:</span> <span class="n">HierarchicalSoftmax</span><span class="p">,</span>
+                      <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="s">"""Convert observation to label probabilities"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ma</code>: Mean of activation units for the output layer as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">Sa</code>: Variance of activation units for the output layer as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">hr_softmax</code>: Hierarchical softmax.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_classes</code>: Total number of classes.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">prob</code>: Probability for each label as a NumPy array.</li>
+</ul>
+
+<h2 id="create_rolling_window-method"><em>create_rolling_window</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create_rolling_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">output_col</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span>
+                          <span class="n">input_seq_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">output_seq_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                          <span class="n">num_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                          <span class="n">stride</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="s">"""Create rolling window for time series data"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">data</code>: Dataset as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">output_col</code>: Indices of the output columns as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">input_seq_len</code>: Length of the input sequence.</li>
+  <li><code class="language-plaintext highlighter-rouge">output_seq_len</code>: Length of the output sequence.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_features</code>: Number of features.</li>
+  <li><code class="language-plaintext highlighter-rouge">stride</code>: Controls the number of steps for the window movements.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">input_data</code>: Input data for neural networks in sequence as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">output_data</code>: Output data for neural networks in sequence as a NumPy array.</li>
+</ul>
+
+<h2 id="get_upper_triu_cov-method"><em>get_upper_triu_cov</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_upper_triu_cov</span>
+
+<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_data</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                       <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="s">"""Create an upper triangle covariance matrix for inputs"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">batch_size</code>: Batch size as an integer.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_data</code>: Number of data as an integer.</li>
+  <li><code class="language-plaintext highlighter-rouge">sigma</code>: Sigma value as a float.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">vx_f</code>: Upper triangle covariance matrix for inputs as a NumPy array.</li>
+</ul>
+
+<hr />
+
+<h2 id="exponential_scheduler-method"><em>exponential_scheduler</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">exponential_scheduler</span><span class="p">(</span><span class="n">curr_v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">min_v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">decaying_factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                          <span class="n">curr_iter</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="s">"""Exponentially decaying"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">curr_v</code>: Current value as a float.</li>
+  <li><code class="language-plaintext highlighter-rouge">min_v</code>: Minimum value as a float.</li>
+  <li><code class="language-plaintext highlighter-rouge">decaying_factor</code>: Decaying factor as a float.</li>
+  <li><code class="language-plaintext highlighter-rouge">curr_iter</code>: Current iteration as a float.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">float</code>: A float representing the result of the exponential decay calculation. The returned value is the maximum of <code class="language-plaintext highlighter-rouge">curr_v * (decaying_factor**curr_iter)</code> and <code class="language-plaintext highlighter-rouge">min_v</code>.</li>
+</ul>
+
+<hr />
+
+<h1 id="the-normalizer-class">The Normalizer class</h1>
+
+<p>Different methods to normalize the data before feeding it to neural networks.</p>
+
+<h2 id="constructor-method-2"><em>constructor</em> method</h2>
+
+<blockquote>
+  <p>Constructor for the Normalizer class.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">method</code>: Optional. A string representing the normalization method.</li>
+</ul>
+
+<h2 id="standardize-method"><em>standardize</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">standardize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">std</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="s">"""Z-score normalization where data_norm = (data - data_mean) / data_std """</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">data</code>: Input data as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">mu</code>: Mean values of the data as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">std</code>: Standard deviation values of the data as a NumPy array.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">np.ndarray</code>: Normalized data as a NumPy array.</li>
+</ul>
+
+<h2 id="unstandardize-method"><em>unstandardize</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nb">staticmethod</span>
+<span class="k">def</span> <span class="nf">unstandardize</span><span class="p">(</span><span class="n">norm_data</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">std</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="s">"""Transform standardized data to original space"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">norm_data</code>: Standardized data as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">mu</code>: Mean values of the original data as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">std</code>: Standard deviation values of the original data as a NumPy array.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">np.ndarray</code>: Unstandardized data in the original space as a NumPy array.</li>
+</ul>
+
+<h2 id="unstandardize_std-method"><em>unstandardize_std</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nb">staticmethod</span>
+<span class="k">def</span> <span class="nf">unstandardize_std</span><span class="p">(</span><span class="n">norm_std</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">std</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="s">"""Transform standardized std to original space"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">norm_std</code>: Standardized standard deviation values as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">std</code>: Standard deviation values of the original data as a NumPy array.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">np.ndarray</code>: Unstandardized standard deviation values in the original space as a NumPy array.</li>
+</ul>
+
+<h2 id="max_min_norm-method"><em>max_min_norm</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">max_min_norm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">max_value</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">min_value</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="s">"""Normalize the data between 0 and 1"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">data</code>: Input data as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">max_value</code>: Maximum values of the data as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">min_value</code>: Minimum values of the data as a NumPy array.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">np.ndarray</code>: Normalized data between 0 and 1 as a NumPy array.</li>
+</ul>
+
+<h2 id="max_min_unnorm-method"><em>max_min_unnorm</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nb">staticmethod</span>
+<span class="k">def</span> <span class="nf">max_min_unnorm</span><span class="p">(</span><span class="n">norm_data</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">max_value</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">min_value</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="s">"""Transform max-min normalized data to original space"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">norm_data</code>: Max-min normalized data as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">max_value</code>: Maximum values of the original data as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">min_value</code>: Minimum values of the original data as a NumPy array.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">np.ndarray</code>: Unnormalized data in the original space as a NumPy array.</li>
+</ul>
+
+<h2 id="max_min_unnorm_std-method"><em>max_min_unnorm_std</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nb">staticmethod</span>
+<span class="k">def</span> <span class="nf">max_min_unnorm_std</span><span class="p">(</span><span class="n">norm_std</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">max_value</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">min_value</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="s">"""Transform max-min normalized std to original space"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">norm_std</code>: Max-min normalized standard deviation values as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">max_value</code>: Maximum values of the original data as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">min_value</code>:</li>
+</ul>
+
+<p>Minimum values of the original data as a NumPy array.</p>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">np.ndarray</code>: Unnormalized standard deviation values in the original space as a NumPy array.</li>
+</ul>
+
+<h2 id="compute_mean_std-method"><em>compute_mean_std</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nb">staticmethod</span>
+<span class="k">def</span> <span class="nf">compute_mean_std</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="s">"""Compute sample mean and standard deviation"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">data</code>: Input data as a NumPy array.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Tuple[np.ndarray, np.ndarray]</code>: A tuple containing the sample mean and standard deviation as NumPy arrays.</li>
+</ul>
+
+<h2 id="compute_max_min-method"><em>compute_max_min</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nb">staticmethod</span>
+<span class="k">def</span> <span class="nf">compute_max_min</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="s">"""Compute max min values"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">data</code>: Input data as a NumPy array.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Tuple[np.ndarray, np.ndarray]</code>: A tuple containing the maximum and minimum values of the data as NumPy arrays.</li>
+</ul>
+
+<hr />
+
+<h2 id="load_param_from_files-function-method"><em>load_param_from_files function</em> method</h2>
+
+<p>Load parameters from CSV files and return them as an instance of the Param class.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">load_param_from_files</span><span class="p">(</span><span class="n">mw_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Sw_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mb_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                          <span class="n">Sb_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mw_sc_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Sw_sc_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                          <span class="n">mb_sc_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Sb_sc_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Param</span><span class="p">:</span>
+    <span class="s">"""Load parameters from CSV files"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">mw_file</code>: Path to the CSV file containing mw values.</li>
+  <li><code class="language-plaintext highlighter-rouge">Sw_file</code>: Path to the CSV file containing Sw values.</li>
+  <li><code class="language-plaintext highlighter-rouge">mb_file</code>: Path to the CSV file containing mb values.</li>
+  <li><code class="language-plaintext highlighter-rouge">Sb_file</code>: Path to the CSV file containing Sb values.</li>
+  <li><code class="language-plaintext highlighter-rouge">mw_sc_file</code>: Path to the CSV file containing mw_sc values.</li>
+  <li><code class="language-plaintext highlighter-rouge">Sw_sc_file</code>: Path to the CSV file containing Sw_sc values.</li>
+  <li><code class="language-plaintext highlighter-rouge">mb_sc_file</code>: Path to the CSV file containing mb_sc values.</li>
+  <li><code class="language-plaintext highlighter-rouge">Sb_sc_file</code>: Path to the CSV file containing Sb_sc values.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Param</code>: An instance of the Param class containing the loaded parameter values.</li>
+</ul>
+
+<p>Note: The function assumes that the CSV files have no headers.</p>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/CivML-PolyMtl/cutagi-doc/edit/gh-pages/api/utils.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

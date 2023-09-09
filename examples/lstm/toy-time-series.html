@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Toy time series problem | cutagi-doc</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Toy time series problem" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Documentation Website for cuTAGI" />
+<meta property="og:description" content="Documentation Website for cuTAGI" />
+<link rel="canonical" href="https://www.tagiml.com/examples/lstm/toy-time-series.html" />
+<meta property="og:url" content="https://www.tagiml.com/examples/lstm/toy-time-series.html" />
+<meta property="og:site_name" content="cutagi-doc" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Toy time series problem" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"Toy time series problem","url":"https://www.tagiml.com/examples/lstm/toy-time-series.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=397f24fafa7edc30ef45f787cd03ac3944d9a0d4">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://www.tagiml.com/">cutagi-doc</a></h1>
+      
+
+      <h1 id="toy-time-series-problem">Toy time series problem</h1>
+
+<p><strong>Author:</strong> <a href="https://www.linkedin.com/in/miquel-florensa/">Miquel Florensa</a><br />
+<strong>Date:</strong> 2023/05/25<br />
+<strong>Description:</strong> This example shows how to use the time series forecaster to solve a LSTM toy problem.</p>
+
+<p><a href="https://github.com/miquelflorensa/cuTAGI/blob/main/python_examples/time_series_runner.py" class="github-link"></a></p>
+<div class="github-icon-container">
+    <img src="../../images/GitHub-Mark.png" alt="GitHub" height="32" width="64" />
+  </div>
+<div class="github-text-container">
+    Github Source code
+  </div>
+<p>&lt;/a&gt;</p>
+
+<hr />
+
+<h2 id="1-setup">1. Setup</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">visualizer</span> <span class="kn">import</span> <span class="n">PredictionViz</span>
+
+<span class="kn">from</span> <span class="nn">python_examples.data_loader</span> <span class="kn">import</span> <span class="n">TimeSeriesDataloader</span>
+<span class="kn">from</span> <span class="nn">python_examples.model</span> <span class="kn">import</span> <span class="n">TimeSeriesLSTM</span>
+<span class="kn">from</span> <span class="nn">python_examples.time_series_forecaster</span> <span class="kn">import</span> <span class="n">TimeSeriesForecaster</span>
+<span class="kn">from</span> <span class="nn">pytagi</span>  <span class="kn">import</span> <span class="n">load_param_from_files</span>
+</code></pre></div></div>
+
+<p>?&gt;Notice that this modules are described <a href="modules/modules.md">here</a> and the source code is in the <em>python_examples</em> directory, in case you have the modules in another directory you must change this paths.</p>
+
+<h2 id="2-prepare-the-data">2. Prepare the data</h2>
+
+<p>In this simple example we will use a toy dataset. The data is generated from a sinus function. The goal is to learn to predict the following timesteps knowing the previous ones.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># User-input
+</span><span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">50</span>       <span class="c1"># row for 50 epochs
+</span><span class="n">output_col</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>      <span class="c1"># column to predict
+</span><span class="n">num_features</span> <span class="o">=</span> <span class="mi">1</span>      <span class="c1"># number of features
+</span><span class="n">input_seq_len</span> <span class="o">=</span> <span class="mi">5</span>     <span class="c1"># input sequence length
+</span><span class="n">output_seq_len</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># output sequence length
+</span><span class="n">seq_stride</span> <span class="o">=</span> <span class="mi">1</span>        <span class="c1"># stride between input sequences
+</span><span class="n">x_train_file</span> <span class="o">=</span>        <span class="s">"./data/toy_time_series/x_train_sin_data.csv"</span>
+<span class="n">datetime_train_file</span> <span class="o">=</span> <span class="s">"./data/toy_time_series/train_sin_datetime.csv"</span>
+<span class="n">x_test_file</span> <span class="o">=</span>         <span class="s">"./data/toy_time_series/x_test_sin_data.csv"</span>
+<span class="n">datetime_test_file</span> <span class="o">=</span>  <span class="s">"./data/toy_time_series/test_sin_datetime.csv"</span>
+</code></pre></div></div>
+
+<p><em>*You can find the used data in the <a href="https://github.com/lhnguyen102/cuTAGI/tree/main/data/toy_time_series">toy time series data</a> in the repository.</em></p>
+
+<p>?&gt;We can plot the training data points and the trend line we want to learn.</p>
+
+<p><img src="/images/toy_lstm_data.png" alt="Toy LSTM problem data" /></p>
+
+<h2 id="3-create-the-model">3. Create the model</h2>
+
+<p>We will use a with a simple LSTM architecture as defined in the TimeSeriesLSTM class wich is suited for Time Series Forecasting. Find out more about the <a href="modules/models?id=lstm-for-time-series-forecasting">TimeSeriesLSTM class</a>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Model
+</span><span class="n">net_prop</span> <span class="o">=</span> <span class="n">TimeSeriesLSTM</span><span class="p">(</span><span class="n">input_seq_len</span><span class="o">=</span><span class="n">input_seq_len</span><span class="p">,</span>
+                          <span class="n">output_seq_len</span><span class="o">=</span><span class="n">output_seq_len</span><span class="p">,</span>
+                          <span class="n">seq_stride</span><span class="o">=</span><span class="n">seq_stride</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>If you want to use a different model, you can create your own class and make sure that it inherits from the NetProp class, more information in <a href="modules/models?id=netprop-class">models page</a>.</p>
+</blockquote>
+
+<h2 id="4-load-the-data">4. Load the data</h2>
+
+<p>We will make use of the <a href="modules/data-loader?id=data-loader">TimeSeriesDataloader</a> class to load and process the data. The <em>process_data</em> function requires the input and output test and training files in a <strong>csv</strong> format.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Data loader
+</span><span class="n">ts_data_loader</span> <span class="o">=</span> <span class="n">TimeSeriesDataloader</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="n">net_prop</span><span class="p">.</span><span class="n">batch_size</span><span class="p">,</span>
+                                      <span class="n">output_col</span><span class="o">=</span><span class="n">output_col</span><span class="p">,</span>
+                                      <span class="n">input_seq_len</span><span class="o">=</span><span class="n">input_seq_len</span><span class="p">,</span>
+                                      <span class="n">output_seq_len</span><span class="o">=</span><span class="n">output_seq_len</span><span class="p">,</span>
+                                      <span class="n">num_features</span><span class="o">=</span><span class="n">num_features</span><span class="p">,</span>
+                                      <span class="n">stride</span><span class="o">=</span><span class="n">seq_stride</span><span class="p">)</span>
+<span class="n">data_loader</span> <span class="o">=</span> <span class="n">ts_data_loader</span><span class="p">.</span><span class="n">process_data</span><span class="p">(</span>
+    <span class="n">x_train_file</span><span class="o">=</span><span class="n">x_train_file</span><span class="p">,</span>
+    <span class="n">datetime_train_file</span><span class="o">=</span><span class="n">datetime_train_file</span><span class="p">,</span>
+    <span class="n">x_test_file</span><span class="o">=</span><span class="n">x_test_file</span><span class="p">,</span>
+    <span class="n">datetime_test_file</span><span class="o">=</span><span class="n">datetime_test_file</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="5-create-visualizer">5. Create visualizer</h2>
+
+<p>In order to visualize the predictions of the regression we can use the PredictionViz class. This class will create a window with the true function, the predicted function and the confidence intervals.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Visualzier
+</span><span class="n">viz</span> <span class="o">=</span> <span class="n">PredictionViz</span><span class="p">(</span><span class="n">task_name</span><span class="o">=</span><span class="s">"forecasting"</span><span class="p">,</span> <span class="n">data_name</span><span class="o">=</span><span class="s">"sin_signal"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Learn more about PredictionViz class <a href="https://github.com/lhnguyen102/cuTAGI/blob/main/visualizer.py">here</a>.</p>
+</blockquote>
+
+<h2 id="6-train-and-evaluate-the-model">6. Train and evaluate the model</h2>
+
+<p>Using the <a href="modules/time-series-forecaster.md">TimeSeriesForecaster class</a> that makes use of TAGI, we will train and test the model. When doing the prediction we can specify the standard deviation factor to calculate the confidence intervals.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Train and test
+</span><span class="n">ts_task</span> <span class="o">=</span> <span class="n">TimeSeriesForecaster</span><span class="p">(</span><span class="n">num_epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span>
+                                <span class="n">data_loader</span><span class="o">=</span><span class="n">data_loader</span><span class="p">,</span>
+                                <span class="n">net_prop</span><span class="o">=</span><span class="n">net_prop</span><span class="p">,</span>
+                                <span class="n">viz</span><span class="o">=</span><span class="n">viz</span><span class="p">)</span>
+
+<span class="n">ts_task</span><span class="p">.</span><span class="n">train</span><span class="p">()</span>
+<span class="n">ts_task</span><span class="p">.</span><span class="n">predict</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="7-visualize-the-results">7. Visualize the results</h2>
+
+<p>At the end of the execution the results will be printed in the console as seen below.</p>
+
+<blockquote>
+  <p>MSE           :  0.03<br />
+Log-likelihood: -1.11</p>
+</blockquote>
+
+<p>?&gt; If you have created the visualizarion object and passed it to the regression object, a new window will pop up with the results.</p>
+
+<p><img src="/images/toy_lstm.png" alt="Toy LSTM problem" /></p>
+
+<p><em>*The black line is the true function, the red line is the predicted function and the red zone is the confidence intervals.</em></p>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/CivML-PolyMtl/cutagi-doc/edit/gh-pages/examples/lstm/toy-time-series.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

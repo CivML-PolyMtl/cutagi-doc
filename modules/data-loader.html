@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>cutagi-doc | Documentation Website for cuTAGI</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="cutagi-doc" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Documentation Website for cuTAGI" />
+<meta property="og:description" content="Documentation Website for cuTAGI" />
+<link rel="canonical" href="https://www.tagiml.com/modules/data-loader.html" />
+<meta property="og:url" content="https://www.tagiml.com/modules/data-loader.html" />
+<meta property="og:site_name" content="cutagi-doc" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="cutagi-doc" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"cutagi-doc","url":"https://www.tagiml.com/modules/data-loader.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=397f24fafa7edc30ef45f787cd03ac3944d9a0d4">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://www.tagiml.com/">cutagi-doc</a></h1>
+      
+
+      <!-------------------------------------------------------------------
+File:         tutorial.md
+Description:  FNN tutorial with 1D data
+Authors:      Miquel Florensa & Luong-Ha Nguyen & James-A. Goulet
+Created:      March 04, 2023
+Updated:      May 29, 2023
+Contact:      miquelflorensa11@gmail.com & luongha.nguyen@gmail.com & james.goulet@polymtl.ca
+Copyright (c) 2023 Miquel Florensa & Luong-Ha Nguyen & James-A. Goulet. Some rights reserved.
+-------------------------------------------------------------------->
+
+<h1 id="data_loaderpy">data_loader.py</h1>
+
+<p><a href="https://github.com/lhnguyen102/cuTAGI/blob/main/python_examples/data_loader.py" class="github-link"></a></p>
+<div class="github-icon-container">
+    <img src="../images/GitHub-Mark.png" alt="GitHub" height="32" width="64" />
+  </div>
+<div class="github-text-container">
+    Github Source code
+  </div>
+<p>&lt;/a&gt;</p>
+
+<h1 id="the-dataloaderbase-class">The DataloaderBase class</h1>
+
+<p>This class represents a template for a data loader.</p>
+
+<h2 id="atributes">Atributes</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">normalizer</code>: An instance from the <a href="api/utils?id=the-normalizer-class">Normalizer</a> class.</li>
+</ul>
+
+<h2 id="constructor-method"><em>constructor</em> method</h2>
+
+<blockquote>
+  <p>Constructor for the DataloaderBase class.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">batch_size</code>: An integer representing the batch size.</li>
+</ul>
+
+<h2 id="process_data-method"><em>process_data</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">abstractmethod</span>
+<span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="s">"""Abstract method for processing the data"""</span>
+</code></pre></div></div>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dict</code>: A dictionary containing the processed data.</li>
+</ul>
+
+<h2 id="create_data_loader-method"><em>create_data_loader</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create_data_loader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">raw_input</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">raw_output</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="s">"""Create dataloader based on batch size"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">raw_input</code>: Raw input data as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">raw_output</code>: Raw output data as a NumPy array.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">list</code>: A list of tuples representing the input-output pairs in each batch.</li>
+</ul>
+
+<h2 id="split_data-method"><em>split_data</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nb">staticmethod</span>
+<span class="k">def</span> <span class="nf">split_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">test_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">val_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="s">"""Split data into training, validation, and test sets"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">data</code>: Input data as a NumPy array.</li>
+  <li><code class="language-plaintext highlighter-rouge">test_ratio</code>: Optional. Float representing the ratio of test data (default: 0.2).</li>
+  <li><code class="language-plaintext highlighter-rouge">val_ratio</code>: Optional. Float representing the ratio of validation data (default: 0.0).</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dict</code>: A dictionary containing the split data sets.</li>
+</ul>
+
+<h2 id="load_data_from_csv-method"><em>load_data_from_csv</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nb">staticmethod</span>
+<span class="k">def</span> <span class="nf">load_data_from_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="s">"""Load data from a CSV file"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">data_file</code>: Path to the CSV file.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pd.DataFrame</code>: The loaded data as a Pandas DataFrame.</li>
+</ul>
+
+<h2 id="split_evenly-method"><em>split_evenly</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nb">staticmethod</span>
+<span class="k">def</span> <span class="nf">split_evenly</span><span class="p">(</span><span class="n">num_data</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="s">"""Split data evenly"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">num_data</code>: The number of data points.</li>
+  <li><code class="language-plaintext highlighter-rouge">chunk_size</code>: The size of each chunk.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">np.ndarray</code>: An array of indices representing the split data.</li>
+</ul>
+
+<h2 id="split_reminder-method"><em>split_reminder</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nb">staticmethod</span>
+<span class="k">def</span> <span class="nf">split_reminder</span><span class="p">(</span><span class="n">num_data</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="s">"""Pad the reminder"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">num_data</code>: The number of data points.</li>
+  <li><code class="language-plaintext highlighter-rouge">chunk_size</code>: The size of each chunk.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">np.ndarray</code>: An array of indices representing the split data.</li>
+</ul>
+
+<hr />
+
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+
+<h1 id="the-regressiondataloader-class">The RegressionDataLoader class</h1>
+
+<p>A class for loading and formatting data that is fed to a neural network. This class inherits from the DataloaderBase class.</p>
+
+<h2 id="constructor-method-1"><em>constructor</em> method</h2>
+
+<blockquote>
+  <p>Constructor for the RegressionDataLoader class.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_inputs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_outputs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">batch_size</code>: An integer representing the batch size.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_inputs</code>: An integer representing the number of input features.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_outputs</code>: An integer representing the number of output features.</li>
+</ul>
+
+<h2 id="process_data-method-1"><em>process_data</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_train_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">y_train_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+                 <span class="n">x_test_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">y_test_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="s">"""Process data from the csv file"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">x_train_file</code>: A string representing the file path of the input training data in CSV format.</li>
+  <li><code class="language-plaintext highlighter-rouge">y_train_file</code>: A string representing the file path of the output training data in CSV format.</li>
+  <li><code class="language-plaintext highlighter-rouge">x_test_file</code>: A string representing the file path of the input testing data in CSV format.</li>
+  <li><code class="language-plaintext highlighter-rouge">y_test_file</code>: A string representing the file path of the output testing data in CSV format.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dict</code>: A dictionary containing the processed data and normalization parameters.</li>
+</ul>
+
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+
+<h1 id="mnistdataloader-class">MnistDataloader class</h1>
+
+<p>Data loader for mnist dataset.</p>
+
+<h2 id="process_data-method-2"><em>process_data</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_train_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">y_train_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">x_test_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">y_test_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="s">"""Process mnist images"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">x_train_file</code>: Path to the file containing mnist training images.</li>
+  <li><code class="language-plaintext highlighter-rouge">y_train_file</code>: Path to the file containing mnist training labels.</li>
+  <li><code class="language-plaintext highlighter-rouge">x_test_file</code>: Path to the file containing mnist test images.</li>
+  <li><code class="language-plaintext highlighter-rouge">y_test_file</code>: Path to the file containing mnist test labels.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dict</code>: A dictionary containing the processed data.</li>
+</ul>
+
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+
+<h1 id="the-timeseriesdataloader-class">The TimeSeriesDataloader class</h1>
+
+<p>Data loader for time series.</p>
+
+<h2 id="constructor-method-2"><em>constructor</em> method</h2>
+
+<blockquote>
+  <p>Constructor for the TimeSeriesDataloader class.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">output_col</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span>
+             <span class="n">input_seq_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">output_seq_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+             <span class="n">stride</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">batch_size</code>: An integer representing the batch size.</li>
+  <li><code class="language-plaintext highlighter-rouge">output_col</code>: A NumPy array representing the output column.</li>
+  <li><code class="language-plaintext highlighter-rouge">input_seq_len</code>: An integer representing the length of the input sequence.</li>
+  <li><code class="language-plaintext highlighter-rouge">output_seq_len</code>: An integer representing the length of the output sequence.</li>
+  <li><code class="language-plaintext highlighter-rouge">num_features</code>: An integer representing the number of features.</li>
+  <li><code class="language-plaintext highlighter-rouge">stride</code>: An integer representing the stride.</li>
+</ul>
+
+<h2 id="process_data-method-3"><em>process_data</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_train_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">datetime_train_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">x_test_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">datetime_test_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="s">"""Process time series"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">x_train_file</code>: A string representing the file path for training input data.</li>
+  <li><code class="language-plaintext highlighter-rouge">datetime_train_file</code>: A string representing the file path for training datetime data.</li>
+  <li><code class="language-plaintext highlighter-rouge">x_test_file</code>: A string representing the file path for testing input data.</li>
+  <li><code class="language-plaintext highlighter-rouge">datetime_test_file</code>: A string representing the file path for testing datetime data.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dict</code>: A dictionary containing the processed data.</li>
+</ul>
+
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+<!--########################################################################-->
+
+<h1 id="classificationdataloader-class">ClassificationDataloader class</h1>
+
+<p>Data loader for csv dataset for classification.</p>
+
+<h2 id="constructor-method-3"><em>constructor</em> method</h2>
+
+<blockquote>
+  <p>Constructor for the ClassificationDataloader class.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">batch_size</code>: An integer representing the batch size for the data loader.</li>
+</ul>
+
+<h2 id="process_data-method-4"><em>process_data</em> method</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_train_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">y_train_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">x_test_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">y_test_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="s">"""Process data from the csv file"""</span>
+</code></pre></div></div>
+
+<p><strong>Parameters</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">x_train_file</code>: File path for the training images CSV file.</li>
+  <li><code class="language-plaintext highlighter-rouge">y_train_file</code>: File path for the training labels CSV file.</li>
+  <li><code class="language-plaintext highlighter-rouge">x_test_file</code>: File path for the test images CSV file.</li>
+  <li><code class="language-plaintext highlighter-rouge">y_test_file</code>: File path for the test labels CSV file.</li>
+</ul>
+
+<p><strong>Returns</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dict</code>: A dictionary containing the processed data.</li>
+</ul>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/CivML-PolyMtl/cutagi-doc/edit/gh-pages/modules/data-loader.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

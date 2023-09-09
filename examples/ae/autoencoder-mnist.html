@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Autoencoder MNIST | cutagi-doc</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Autoencoder MNIST" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Documentation Website for cuTAGI" />
+<meta property="og:description" content="Documentation Website for cuTAGI" />
+<link rel="canonical" href="https://www.tagiml.com/examples/ae/autoencoder-mnist.html" />
+<meta property="og:url" content="https://www.tagiml.com/examples/ae/autoencoder-mnist.html" />
+<meta property="og:site_name" content="cutagi-doc" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Autoencoder MNIST" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"Autoencoder MNIST","url":"https://www.tagiml.com/examples/ae/autoencoder-mnist.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=397f24fafa7edc30ef45f787cd03ac3944d9a0d4">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://www.tagiml.com/">cutagi-doc</a></h1>
+      
+
+      <h1 id="autoencoder-mnist">Autoencoder MNIST</h1>
+
+<p><strong>Author:</strong> <a href="https://www.linkedin.com/in/miquel-florensa/">Miquel Florensa</a><br />
+<strong>Date:</strong> 2023/05/05<br />
+<strong>Description:</strong> This example shows how to train an autoencoder to reconstruct the MNIST images.</p>
+
+<p><a href="https://github.com/miquelflorensa/miquelflorensa.github.io/blob/main/code/autoencoder_runner.py" class="github-link"></a></p>
+<div class="github-icon-container">
+    <img src="../../images/GitHub-Mark.png" alt="GitHub" height="32" width="64" />
+  </div>
+<div class="github-text-container">
+    Github Source code
+  </div>
+<p>&lt;/a&gt;</p>
+
+<hr />
+
+<h2 id="1-setup">1. Setup</h2>
+
+<p>We first import the required modules: the numpy library, the ImageViz, the autoencoder, the data loader and the encoder/decoder classes.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">visualizer</span> <span class="kn">import</span> <span class="n">ImageViz</span>
+
+<span class="kn">from</span> <span class="nn">python_examples.autoencoder</span> <span class="kn">import</span> <span class="n">Autoencoder</span>
+<span class="kn">from</span> <span class="nn">python_examples.data_loader</span> <span class="kn">import</span> <span class="n">MnistDataloader</span>
+<span class="kn">from</span> <span class="nn">python_examples.model</span> <span class="kn">import</span> <span class="n">MnistDecoder</span><span class="p">,</span> <span class="n">MnistEncoder</span>
+</code></pre></div></div>
+
+<p>?&gt;Notice that this modules are described <a href="modules/modules.md">here</a> and the source code is in the <em>python_examples</em> directory, in case you have the modules in another directory you must change this paths.</p>
+
+<h2 id="2-prepare-the-data">2. Prepare the data</h2>
+
+<p>We define the number of epochs, some model properties and the paths to the data. Notice that the data is in ubyte format and divided in four files: the training images, the training labels, the test images and the test labels.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># User-input
+</span><span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">10</span>                  <span class="c1"># row for 10 epochs
+</span><span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1309</span><span class="p">])</span>          <span class="c1"># mean of each input
+</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>            <span class="c1"># standard deviation of each input
+</span><span class="n">img_size</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">])</span> <span class="c1"># size of image input
+</span><span class="n">x_train_file</span> <span class="o">=</span> <span class="s">"./data/mnist/train-images-idx3-ubyte"</span>
+<span class="n">y_train_file</span> <span class="o">=</span> <span class="s">"./data/mnist/train-labels-idx1-ubyte"</span>
+<span class="n">x_test_file</span> <span class="o">=</span>  <span class="s">"./data/mnist/t10k-images-idx3-ubyte"</span>
+<span class="n">y_test_file</span> <span class="o">=</span>  <span class="s">"./data/mnist/t10k-labels-idx1-ubyte"</span>
+</code></pre></div></div>
+
+<p><em>*You can find the used data in the <a href="https://github.com/lhnguyen102/cuTAGI/tree/main/data/mnist">MNIST data</a> in the repository.</em></p>
+
+<h2 id="3-create-the-model">3. Create the model</h2>
+
+<p>In this example we will create a model consisting in an encoder and a decoder that will allow us to reconstruct the original images. Find out more about the architecture in <a href="https://arxiv.org/pdf/2103.05461.pdf">Analytically Tractable Inference in Deep Neural Networks</a>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Model
+</span><span class="n">encoder_prop</span> <span class="o">=</span> <span class="n">MnistEncoder</span><span class="p">()</span>
+<span class="n">decoder_prop</span> <span class="o">=</span> <span class="n">MnistDecoder</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="4-load-the-data">4. Load the data</h2>
+
+<p>The next step is to load the data. We will use the <a href="modules/data-loader?id=data-loader">MnistDataloader class</a> to load the MNIST data and we will pass the batch size of the encoder and the data paths to the class.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Data loader
+</span><span class="n">ae_data_loader</span> <span class="o">=</span> <span class="n">MnistDataloader</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="n">encoder_prop</span><span class="p">.</span><span class="n">batch_size</span><span class="p">)</span>
+<span class="n">data_loader</span> <span class="o">=</span> <span class="n">ae_data_loader</span><span class="p">.</span><span class="n">process_data</span><span class="p">(</span><span class="n">x_train_file</span><span class="o">=</span><span class="n">x_train_file</span><span class="p">,</span>
+                                            <span class="n">y_train_file</span><span class="o">=</span><span class="n">y_train_file</span><span class="p">,</span>
+                                            <span class="n">x_test_file</span><span class="o">=</span><span class="n">x_test_file</span><span class="p">,</span>
+                                            <span class="n">y_test_file</span><span class="o">=</span><span class="n">y_test_file</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="5-create-visualizer">5. Create visualizer</h2>
+
+<p>In order to visualize the reconstruction of the images we can use the PredictionViz class.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Visualization
+</span><span class="n">viz</span> <span class="o">=</span> <span class="n">ImageViz</span><span class="p">(</span><span class="n">task_name</span><span class="o">=</span><span class="s">"autoencoder"</span><span class="p">,</span>
+                <span class="n">data_name</span><span class="o">=</span><span class="s">"mnist"</span><span class="p">,</span>
+                <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span>
+                <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
+                <span class="n">img_size</span><span class="o">=</span><span class="n">img_size</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Learn more about  PredictionViz class <a href="https://github.com/lhnguyen102/cuTAGI/blob/main/visualizer.py">here</a>.</p>
+</blockquote>
+
+<h2 id="6-create-the-autoencoder-object">6. Create the autoencoder object</h2>
+
+<p>Once we processed the data, we can create the autoencoder object. We will pass the number of epochs, the data loader, the network properties and vizualization object to the class.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Train and test
+</span><span class="n">ae_task</span> <span class="o">=</span> <span class="n">Autoencoder</span><span class="p">(</span><span class="n">num_epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span>
+                        <span class="n">data_loader</span><span class="o">=</span><span class="n">data_loader</span><span class="p">,</span>
+                        <span class="n">encoder_prop</span><span class="o">=</span><span class="n">encoder_prop</span><span class="p">,</span>
+                        <span class="n">decoder_prop</span><span class="o">=</span><span class="n">decoder_prop</span><span class="p">,</span>
+                        <span class="n">viz</span><span class="o">=</span><span class="n">viz</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Find out more about the <a href="modules/autoencoder.md">Autoencoder class</a>.</p>
+</blockquote>
+
+<h2 id="7-train-and-evaluate-the-model">7 Train and evaluate the model</h2>
+
+<p>Finally, we can train and evaluate the model. We will call the train and predict methods of the autoencoder object.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ae_task</span><span class="p">.</span><span class="n">train</span><span class="p">()</span>
+<span class="n">ae_task</span><span class="p">.</span><span class="n">predict</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="8-results">8. Results</h2>
+
+<p>If we created the visualizer object, we can visualize the results. The following figure shows the reconstructed images.</p>
+
+<p><img src="/images/mnist_autoencoder_disp.png" alt="autoencoder mnist" /></p>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/CivML-PolyMtl/cutagi-doc/edit/gh-pages/examples/ae/autoencoder-mnist.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

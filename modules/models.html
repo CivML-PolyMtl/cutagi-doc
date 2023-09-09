@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Models | cutagi-doc</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Models" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Documentation Website for cuTAGI" />
+<meta property="og:description" content="Documentation Website for cuTAGI" />
+<link rel="canonical" href="https://www.tagiml.com/modules/models.html" />
+<meta property="og:url" content="https://www.tagiml.com/modules/models.html" />
+<meta property="og:site_name" content="cutagi-doc" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Models" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"Models","url":"https://www.tagiml.com/modules/models.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=397f24fafa7edc30ef45f787cd03ac3944d9a0d4">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://www.tagiml.com/">cutagi-doc</a></h1>
+      
+
+      <h1 id="models">Models</h1>
+
+<p>?&gt; <strong>All models explained in this document can be found in the <a href="https://github.com/lhnguyen102/cuTAGI/blob/main/python_examples/model.py">python examples</a> source code.</strong></p>
+
+<p>In order to use the pyTAGI library, it is necessary to create a model class that inherits from the NetProp class. This NetProp class is essentially a wrapper from cuTAGI and is described in detail in its <a href="api/tagi-network.md">Tagi Network API</a> section. Thus, it will be required to import this class.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pytagi</span> <span class="kn">import</span> <span class="n">NetProp</span>
+</code></pre></div></div>
+
+<h2 id="mlp-generic-class">MLP Generic class</h2>
+
+<p>!&gt; <em>This class is not implemented in the original code. It may be usefull to have it, or maybe not.</em></p>
+
+<p>This class is the base class for all the models. It can be customized as desired and it has the following arguments:</p>
+
+<ul>
+  <li>layers: list of integers.</li>
+  <li>nodes: list of integers.</li>
+  <li>activations: list of integers.</li>
+  <li>batch_size: integer.</li>
+  <li>*sigma_v: float.</li>
+  <li>*sigma_v_min: float.</li>
+  <li>*noise_type: string.</li>
+  <li>*noise_gain: float.</li>
+  <li>*init_method: string.</li>
+  <li>*device: string.</li>
+</ul>
+
+<p><em>*Not mandatory arguments</em></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="k">class</span> <span class="nc">MLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Multi-layer perceptron"""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+                 <span class="n">layers</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> 
+                 <span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> 
+                 <span class="n">activations</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+                 <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+                 <span class="n">sigma_v</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span> <span class="p">,</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> 
+                 <span class="n">sigma_v_min</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                 <span class="n">noise_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                 <span class="n">noise_gain</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                 <span class="n">init_method</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="s">"He"</span><span class="p">,</span>
+                 <span class="n">device</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span> <span class="o">=</span> <span class="s">"cpu"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">nodes</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span> <span class="o">=</span> <span class="n">activations</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="k">if</span> <span class="n">sigma_v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span> <span class="o">=</span> <span class="n">sigma_v</span>
+        <span class="k">if</span> <span class="n">sigma_v_min</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v_min</span> <span class="o">=</span> <span class="n">sigma_v_min</span>
+        <span class="k">if</span> <span class="n">noise_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">noise_type</span> <span class="o">=</span> <span class="n">noise_type</span>
+        <span class="k">if</span> <span class="n">noise_gain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">noise_gain</span> <span class="o">=</span> <span class="n">noise_gain</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">init_method</span><span class="p">:</span> <span class="n">init_method</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+</code></pre></div></div>
+
+<h2 id="regression-mlp-class">Regression MLP class</h2>
+
+<p>This simple model has one input layer, one hidden layer and one output layer. The input layer will have a single variable, the hidden layer will have 50 hidden units and the output layer will have one variable. The activation function of the hidden layer will be ReLU and the batch size will be four. The observation noise’s standard deviation and its minimum will be 0.06. When one wich to use a scheduler to decrease <code class="language-plaintext highlighter-rouge">sigma_v</code> over epochs, <code class="language-plaintext highlighter-rouge">sigma_v_min</code> should be choosen to be smaller than <code class="language-plaintext highlighter-rouge">sigma_v</code> (Note: this is commonly the case for CNN).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Model
+</span><span class="kn">from</span> <span class="nn">pytagi</span> <span class="kn">import</span> <span class="n">NetProp</span>
+
+<span class="k">class</span> <span class="nc">RegressionMLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Multi-layer perceptron for regression task"""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>         <span class="c1"># [input layer,  hidden layer,       output layer]
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>         <span class="c1"># [#inputs,      #hidden units,      #outputs    ]
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>    <span class="c1"># [~,            ReLU activation,    ~           ]
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">4</span>             <span class="c1"># Number of observation per batch
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span> <span class="o">=</span> <span class="mf">0.06</span>             <span class="c1"># Observation error's standard deviation
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.06</span>  <span class="c1"># Min. observation error's std for the scheduler
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="s">"cpu"</span>             <span class="c1"># CPU computations
+</span></code></pre></div></div>
+
+<h2 id="heteroscedastic-regression-mlp-class">Heteroscedastic Regression MLP class</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">HeterosMLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Multi-layer preceptron for regression task where the
+    output's noise varies overtime"""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># output layer = [mean, std]
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">noise_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"heteros"</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">noise_gain</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">init_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"He"</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"cpu"</span>
+</code></pre></div></div>
+
+<h2 id="full-covariance-regression-mlp-class">Full-Covariance Regression MLP class</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">class</span> <span class="nc">FullCovMLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Multi-layer perceptron for performing full-covariance prediction and
+     inference"""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.065</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">decay_factor_sigma_v</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3485</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">is_full_cov</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">multithreading</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"cpu"</span>
+</code></pre></div></div>
+
+<h2 id="derivative-regression-mlp-class">Derivative Regression MLP class</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">DervMLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Multi-layer perceptron for computing the derivative of a 
+    regression task"""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">decay_factor_sigma_v</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.99</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">collect_derivative</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">init_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"He"</span>
+</code></pre></div></div>
+
+<h2 id="mnist-classification-mlp-class">MNIST Classification MLP class</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MnistMLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Multi-layer perceptron for mnist classification.
+
+    NOTE: The number of hidden states for last layer is 11 because
+    TAGI use the hierarchical softmax for the classification task. 
+    Further details can be found in 
+    https://www.jmlr.org/papers/volume22/20-1009/20-1009.pdf
+    """</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">784</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">is_idx_ud</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">multithreading</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="s">"cpu"</span>
+</code></pre></div></div>
+
+<h2 id="2-conv-mnist-classification-mlp-class">2 CONV. MNIST Classification MLP class</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ConvMLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Multi-layer perceptron for mnist classificaiton using CNN with 2 
+    convolutional layers."""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span> <span class="o">=</span>       <span class="p">[</span><span class="mi">2</span><span class="p">,</span>     <span class="mi">2</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span> <span class="o">=</span>        <span class="p">[</span><span class="mi">784</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>     <span class="mi">20</span><span class="p">,</span>     <span class="mi">11</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">kernels</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">4</span><span class="p">,</span>     <span class="mi">3</span><span class="p">,</span>      <span class="mi">5</span><span class="p">,</span>      <span class="mi">3</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">strides</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span>     <span class="mi">2</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">widths</span> <span class="o">=</span>       <span class="p">[</span><span class="mi">28</span><span class="p">,</span>   <span class="mi">27</span><span class="p">,</span>     <span class="mi">13</span><span class="p">,</span>      <span class="mi">9</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">heights</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">28</span><span class="p">,</span>   <span class="mi">27</span><span class="p">,</span>     <span class="mi">13</span><span class="p">,</span>      <span class="mi">9</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">filters</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span>    <span class="mi">32</span><span class="p">,</span>     <span class="mi">32</span><span class="p">,</span>     <span class="mi">64</span><span class="p">,</span>     <span class="mi">64</span><span class="p">,</span>    <span class="mi">150</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pads</span> <span class="o">=</span>         <span class="p">[</span><span class="mi">1</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pad_types</span> <span class="o">=</span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span> <span class="o">=</span>  <span class="p">[</span><span class="mi">0</span><span class="p">,</span>     <span class="mi">4</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>     <span class="mi">12</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">is_idx_ud</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">multithreading</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="s">"cuda"</span>
+</code></pre></div></div>
+
+<h2 id="batch-normalization-mlp-class">BATCH NORMALIZATION MLP class</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ConvBatchNormMLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Multi-layer perceptron for mnist classificaiton using CNN with batch 
+    normalization."""</span>
+
+    <span class="s">"""TODO: This class is not yet implemented."""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span> <span class="o">=</span>       <span class="p">[</span><span class="mi">2</span><span class="p">,</span>     <span class="mi">2</span><span class="p">,</span>      <span class="mi">6</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">6</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span> <span class="o">=</span>        <span class="p">[</span><span class="mi">784</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>    <span class="mi">150</span><span class="p">,</span>     <span class="mi">11</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">kernels</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">4</span><span class="p">,</span>     <span class="mi">3</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">5</span><span class="p">,</span>      <span class="mi">3</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">strides</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span>     <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">widths</span> <span class="o">=</span>       <span class="p">[</span><span class="mi">28</span><span class="p">,</span>   <span class="mi">27</span><span class="p">,</span>     <span class="mi">27</span><span class="p">,</span>     <span class="mi">13</span><span class="p">,</span>      <span class="mi">9</span><span class="p">,</span>      <span class="mi">9</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">heights</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">28</span><span class="p">,</span>   <span class="mi">27</span><span class="p">,</span>     <span class="mi">27</span><span class="p">,</span>     <span class="mi">13</span><span class="p">,</span>      <span class="mi">9</span><span class="p">,</span>      <span class="mi">9</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">filters</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span>    <span class="mi">32</span><span class="p">,</span>     <span class="mi">32</span><span class="p">,</span>     <span class="mi">32</span><span class="p">,</span>     <span class="mi">64</span><span class="p">,</span>     <span class="mi">64</span><span class="p">,</span>     <span class="mi">64</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pads</span> <span class="o">=</span>         <span class="p">[</span><span class="mi">0</span><span class="p">,</span>     <span class="mi">1</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pad_types</span> <span class="o">=</span>    <span class="p">[</span><span class="mi">0</span><span class="p">,</span>     <span class="mi">1</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span> <span class="o">=</span>  <span class="p">[</span><span class="mi">0</span><span class="p">,</span>     <span class="mi">4</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>     <span class="mi">12</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">is_idx_ud</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">multithreading</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="s">"cpu"</span>
+</code></pre></div></div>
+
+<h2 id="3-conv-cifar10-classification-mlp-class">3 CONV CIFAR10 Classification MLP class</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ConvCifarMLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Multi-layer perceptron for cifar classificaiton."""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span> <span class="o">=</span>       <span class="p">[</span><span class="mi">2</span><span class="p">,</span>     <span class="mi">2</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span> <span class="o">=</span>        <span class="p">[</span><span class="mi">3072</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>     <span class="mi">64</span><span class="p">,</span>     <span class="mi">11</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">kernels</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">3</span><span class="p">,</span>     <span class="mi">5</span><span class="p">,</span>      <span class="mi">3</span><span class="p">,</span>      <span class="mi">5</span><span class="p">,</span>      <span class="mi">3</span><span class="p">,</span>      <span class="mi">5</span><span class="p">,</span>      <span class="mi">3</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">strides</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span>     <span class="mi">1</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">widths</span> <span class="o">=</span>       <span class="p">[</span><span class="mi">32</span><span class="p">,</span>   <span class="mi">32</span><span class="p">,</span>     <span class="mi">16</span><span class="p">,</span>     <span class="mi">16</span><span class="p">,</span>      <span class="mi">8</span><span class="p">,</span>      <span class="mi">8</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">heights</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">32</span><span class="p">,</span>   <span class="mi">32</span><span class="p">,</span>     <span class="mi">16</span><span class="p">,</span>     <span class="mi">16</span><span class="p">,</span>      <span class="mi">8</span><span class="p">,</span>      <span class="mi">8</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">filters</span> <span class="o">=</span>      <span class="p">[</span><span class="mi">3</span><span class="p">,</span>    <span class="mi">32</span><span class="p">,</span>     <span class="mi">32</span><span class="p">,</span>     <span class="mi">32</span><span class="p">,</span>     <span class="mi">32</span><span class="p">,</span>     <span class="mi">64</span><span class="p">,</span>     <span class="mi">64</span><span class="p">,</span>     <span class="mi">64</span><span class="p">,</span>      <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pads</span> <span class="o">=</span>         <span class="p">[</span><span class="mi">0</span><span class="p">,</span>     <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pad_types</span> <span class="o">=</span>    <span class="p">[</span><span class="mi">0</span><span class="p">,</span>     <span class="mi">2</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">2</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span> <span class="o">=</span>  <span class="p">[</span><span class="mi">0</span><span class="p">,</span>     <span class="mi">4</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>      <span class="mi">0</span><span class="p">,</span>      <span class="mi">4</span><span class="p">,</span>     <span class="mi">12</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">is_idx_ud</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">multithreading</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="s">"cuda"</span>
+</code></pre></div></div>
+
+<h2 id="lstm-for-time-series-forecasting">LSTM for Time Series Forecasting</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">TimeSeriesLSTM</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""LSTM for time series forecasting"""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">input_seq_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                 <span class="n">output_seq_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                 <span class="n">seq_stride</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                 <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">input_seq_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">input_seq_len</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">output_seq_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">output_seq_len</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">seq_stride</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">seq_stride</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">decay_factor_sigma_v</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">multithreading</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"cpu"</span>
+</code></pre></div></div>
+
+<h2 id="mnist-encoder">MNIST Encoder</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MnistEncoder</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Encoder network for Mnist example"""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">784</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">kernels</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">strides</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">widths</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">heights</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">filters</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pads</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pad_types</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">is_output_ud</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">init_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"He"</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"cuda"</span>
+</code></pre></div></div>
+
+<h2 id="mnist-decoder">MNIST Decoder</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MnistDecoder</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Decoder network for Mnist example"""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1568</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">784</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">kernels</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">strides</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">widths</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">heights</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">filters</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pads</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pad_types</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">is_idx_ud</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">last_backward_layer</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">decay_factor_sigma_v</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">init_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"He"</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"cuda"</span>
+</code></pre></div></div>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/CivML-PolyMtl/cutagi-doc/edit/gh-pages/modules/models.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>
