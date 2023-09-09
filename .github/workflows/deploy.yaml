@@ -12,28 +12,16 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v3
 
-        # - name: Setup Pages
-        #   uses: actions/configure-pages@v3
+        - name: Setup Pages
+          uses: actions/configure-pages@v3
 
-        - name: Reby setup
-          uses: ruby/setup-ruby@v1
-          with:
-            ruby-version: '3.2' # Not needed with a .ruby-version file
-            bundler-cache: true
-        - name: Install Jekyll
-          run: gem install jekyll
         - name: Build with Jekyll
-          run: jekyll build --source ./ --destination ./_site
+          uses: actions/jekyll-build-pages@v1
+          with:
+            source: ./
+            destination: ./_site
 
-        # # Copy nojekyll to bypass understore folder and file
-        # - name: Modify _site directory permissions
-        #   run: sudo chmod -R 777 ./_site
-        # - name: Copy .nojekyll file
-        #   run: cp .nojekyll ./_site/
-        # - name: List files
-        #   run: ls -la ./_site 
-
-        # Upload artifacts to be downlowed in the deployment step
+        # Upload artifacts to be downlowed in the
         - name: Upload production-ready build files
           uses: actions/upload-artifact@v2
           with:
@@ -60,5 +48,7 @@ jobs:
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             publish_dir: ./_site
+            enable_jekyll: true
             cname: www.tagiml.com
+            
 
