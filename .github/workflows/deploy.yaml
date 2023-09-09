@@ -15,17 +15,17 @@ jobs:
         - name: Setup Pages
           uses: actions/configure-pages@v3
 
-        - name: Create .nojekyll file
-          run: |
-            mkdir -p ./_site
-            sudo touch ./_site/.nojekyll
-
         - name: Build with Jekyll
           uses: actions/jekyll-build-pages@v1
           with:
             source: ./
             destination: ./_site
-            
+
+        - name: Create .nojekyll file
+          run: |
+            touch .nojekyll
+            mv .nojekyll ./_site/
+
         - name: List files
           run: ls -la ./_site 
 
