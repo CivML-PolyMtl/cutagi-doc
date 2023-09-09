@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>cutagi-doc | Documentation Website for cuTAGI</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="cutagi-doc" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Documentation Website for cuTAGI" />
+<meta property="og:description" content="Documentation Website for cuTAGI" />
+<link rel="canonical" href="https://civml-polymtl.github.io/cutagi-doc/quick_tutorial.html" />
+<meta property="og:url" content="https://civml-polymtl.github.io/cutagi-doc/quick_tutorial.html" />
+<meta property="og:site_name" content="cutagi-doc" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="cutagi-doc" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"cutagi-doc","url":"https://civml-polymtl.github.io/cutagi-doc/quick_tutorial.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/cutagi-doc/assets/css/style.css?v=ad49bdcd176b8336bb8e458acdc002c19aa48ff2">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/cutagi-doc/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://civml-polymtl.github.io/cutagi-doc/">cutagi-doc</a></h1>
+      
+
+      <!-------------------------------------------------------------------
+File:         tutorial.md
+Description:  FNN tutorial with 1D data
+Authors:      Miquel Florensa & Luong-Ha Nguyen & James-A. Goulet
+Created:      March 02, 2023
+Updated:      March 02, 2023
+Contact:      miquelflorensa11@gmail.com & luongha.nguyen@gmail.com & james.goulet@polymtl.ca
+Copyright (c) 2023 Miquel Florensa & Luong-Ha Nguyen & James-A. Goulet. Some rights reserved.
+-------------------------------------------------------------------->
+
+<h1 id="1d-toy-regression-problem">1D toy regression problem</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In this tutorial, we will see how to use pytagi to solve a simple regression problem. We will use a 1D toy dataset and a feedforward neural network (FNN) with a simple architecture.</p>
+
+<h2 id="define-user-input-and-data">Define user input and data</h2>
+
+<p>In this simple example, we will use a 1D toy dataset. The dataset is composed of 10 training samples and 100 test samples.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># User-input
+</span><span class="n">num_inputs</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">num_outputs</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">x_train_file</span> <span class="o">=</span> <span class="s">"./data/toy_example/x_train_1D.csv"</span>
+<span class="n">y_train_file</span> <span class="o">=</span> <span class="s">"./data/toy_example/y_train_1D.csv"</span>
+<span class="n">x_test_file</span> <span class="o">=</span> <span class="s">"./data/toy_example/x_test_1D.csv"</span>
+<span class="n">y_test_file</span> <span class="o">=</span> <span class="s">"./data/toy_example/y_test_1D.csv"</span>
+</code></pre></div></div>
+
+<h2 id="build-regression-model">Build Regression Model</h2>
+
+<p>We will use a FNN with a simple architecture. We will use the RegressionMLP class explained <a href="#regression-mlp-class">here</a>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Model
+</span><span class="n">net_prop</span> <span class="o">=</span> <span class="n">RegressionMLP</span><span class="p">()</span>                          <span class="c1">#MLP model configuration
+</span></code></pre></div></div>
+
+<h2 id="data-loader">Data loader</h2>
+
+<p>We will use the RegressionDataLoader class explained <a href="tutorial_data_loader.md">here</a> to load and process the data.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Data loader
+</span><span class="n">reg_data_loader</span> <span class="o">=</span> <span class="n">RegressionDataLoader</span><span class="p">(</span><span class="n">num_inputs</span><span class="o">=</span><span class="n">num_inputs</span><span class="p">,</span>
+                                       <span class="n">num_outputs</span><span class="o">=</span><span class="n">num_outputs</span><span class="p">,</span>
+                                       <span class="n">batch_size</span><span class="o">=</span><span class="n">net_prop</span><span class="p">.</span><span class="n">batch_size</span><span class="p">)</span>
+<span class="n">data_loader</span> <span class="o">=</span> <span class="n">reg_data_loader</span><span class="p">.</span><span class="n">process_data</span><span class="p">(</span><span class="n">x_train_file</span><span class="o">=</span><span class="n">x_train_file</span><span class="p">,</span>
+                                           <span class="n">y_train_file</span><span class="o">=</span><span class="n">y_train_file</span><span class="p">,</span>
+                                           <span class="n">x_test_file</span><span class="o">=</span><span class="n">x_test_file</span><span class="p">,</span>
+                                           <span class="n">y_test_file</span><span class="o">=</span><span class="n">y_test_file</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="train-and-test-the-model">Train and test the model</h2>
+
+<p>Using the <a href="https://github.com/lhnguyen102/cuTAGI/blob/main/python_examples/regression.py">regression class</a> that makes use of TAGI, we will train the model using analytical inference and then and test it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1"># Optional: Visualize the test using visualizer.py
+</span>    <span class="n">viz</span> <span class="o">=</span> <span class="n">PredictionViz</span><span class="p">(</span><span class="n">task_name</span><span class="o">=</span><span class="s">"regression"</span><span class="p">,</span> <span class="n">data_name</span><span class="o">=</span><span class="s">"toy1D"</span><span class="p">)</span>
+
+    <span class="c1"># Train and test
+</span>    <span class="n">reg_task</span> <span class="o">=</span> <span class="n">Regression</span><span class="p">(</span><span class="n">num_epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span>
+                          <span class="n">data_loader</span><span class="o">=</span><span class="n">data_loader</span><span class="p">,</span>
+                          <span class="n">net_prop</span><span class="o">=</span><span class="n">net_prop</span><span class="p">,</span>
+                          <span class="n">viz</span><span class="o">=</span><span class="n">viz</span><span class="p">)</span>
+    <span class="n">reg_task</span><span class="p">.</span><span class="n">train</span><span class="p">()</span>                                <span class="c1">#Train by infering parameter values
+</span>    <span class="n">reg_task</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">std_factor</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>                  <span class="c1">#plot 3σ confidence region 
+</span></code></pre></div></div>
+
+<p><em>*<code class="language-plaintext highlighter-rouge">PredictionViz</code> class in <a href="https://github.com/lhnguyen102/cuTAGI/blob/main/visualizer.py">here</a></em></p>
+
+<h2 id="results">Results</h2>
+
+<p>The results are shown in the following figure. The black line is the true function, the red line is the predicted function and the red zone is the confidence intervals.</p>
+
+<p align="center">
+<img src="./images/1D_toy_regression.png" width="40%" alt="1D toy regression problem" />
+</p>
+
+<h2 id="regression-mlp-class">Regression MLP class</h2>
+
+<p>The model will have one input layer, one hidden layer and one output layer. The input layer will have a single variable, the hidden layer will have 50 hidden units and the output layer will have one variable. The activation function of the hidden layer will be ReLU and the batch size will be four. The observation noise’s standard deviation and its minimum will be 0.06. When one wich to use a scheduler to decrease <code class="language-plaintext highlighter-rouge">sigma_v</code> over epochs, <code class="language-plaintext highlighter-rouge">sigma_v_min</code> should be choosen to be smaller than <code class="language-plaintext highlighter-rouge">sigma_v</code> (Note: this is commonly the case for CNN).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Model
+</span><span class="kn">from</span> <span class="nn">pytagi</span> <span class="kn">import</span> <span class="n">NetProp</span>
+
+<span class="k">class</span> <span class="nc">RegressionMLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Multi-layer perceptron for regression task"""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>         <span class="c1"># [input layer,  hidden layer,       output layer]
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>         <span class="c1"># [#inputs,      #hidden units,      #outputs    ]
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>    <span class="c1"># [~,            ReLU activation,    ~           ]
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">4</span>             <span class="c1"># Number of observation per batch
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span> <span class="o">=</span> <span class="mf">0.06</span>             <span class="c1"># Observation error's standard deviation
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.06</span>  <span class="c1"># Min. observation error's std for the scheduler
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="s">"cpu"</span>             <span class="c1"># CPU computations
+</span></code></pre></div></div>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/CivML-PolyMtl/cutagi-doc/edit/main/quick_tutorial.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

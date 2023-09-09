@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Batch normalization on MNIST | cutagi-doc</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Batch normalization on MNIST" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Documentation Website for cuTAGI" />
+<meta property="og:description" content="Documentation Website for cuTAGI" />
+<link rel="canonical" href="https://civml-polymtl.github.io/cutagi-doc/examples/cnn/batch-norm-mnist.html" />
+<meta property="og:url" content="https://civml-polymtl.github.io/cutagi-doc/examples/cnn/batch-norm-mnist.html" />
+<meta property="og:site_name" content="cutagi-doc" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Batch normalization on MNIST" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"Batch normalization on MNIST","url":"https://civml-polymtl.github.io/cutagi-doc/examples/cnn/batch-norm-mnist.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/cutagi-doc/assets/css/style.css?v=ad49bdcd176b8336bb8e458acdc002c19aa48ff2">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/cutagi-doc/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://civml-polymtl.github.io/cutagi-doc/">cutagi-doc</a></h1>
+      
+
+      <h1 id="batch-normalization-on-mnist">Batch normalization on MNIST</h1>
+
+<p><strong>Author:</strong> <a href="https://www.linkedin.com/in/miquel-florensa/">Miquel Florensa</a><br />
+<strong>Date:</strong> 2023/04/24<br />
+<strong>Description:</strong> This example shows how to train a convolutional neural network (CNN) with batch normalization to classify the MNIST dataset.</p>
+
+<p><a href="https://github.com/miquelflorensa/miquelflorensa.github.io/blob/main/code/2conv_bn_classification_runner.py" class="github-link"></a></p>
+<div class="github-icon-container">
+    <img src="../../images/GitHub-Mark.png" alt="GitHub" height="32" width="64" />
+  </div>
+<div class="github-text-container">
+    Github Source code
+  </div>
+<p>&lt;/a&gt;</p>
+
+<hr />
+
+<h2 id="1-setup">1. Setup</h2>
+
+<p>We first import the required modules: the classifier, the data loader and the model.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">python_examples.classification</span> <span class="kn">import</span> <span class="n">Classifier</span>
+<span class="kn">from</span> <span class="nn">python_examples.data_loader</span> <span class="kn">import</span> <span class="n">MnistDataloader</span>
+<span class="kn">from</span> <span class="nn">python_examples.model</span> <span class="kn">import</span> <span class="n">ConvBatchNormMLP</span>
+
+</code></pre></div></div>
+
+<p>?&gt;Notice that this modules are described <a href="modules/modules.md">here</a> and the source code is in the <em>python_examples</em> directory, in case you have the modules in another directory you must change this paths.</p>
+
+<h2 id="2-prepare-the-data">2. Prepare the data</h2>
+
+<p>We define the number of epochs and the paths to the data. Notice that the data is in ubyte format and divided in four files: the training images, the training labels, the test images and the test labels.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># User-input
+</span><span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># row for 50 epochs
+</span><span class="n">x_train_file</span> <span class="o">=</span> <span class="s">"./data/mnist/train-images-idx3-ubyte"</span>
+<span class="n">y_train_file</span> <span class="o">=</span> <span class="s">"./data/mnist/train-labels-idx1-ubyte"</span>
+<span class="n">x_test_file</span> <span class="o">=</span> <span class="s">"./data/mnist/t10k-images-idx3-ubyte"</span>
+<span class="n">y_test_file</span> <span class="o">=</span> <span class="s">"./data/mnist/t10k-labels-idx1-ubyte"</span>
+</code></pre></div></div>
+
+<p><em>*You can find the used data in the <a href="https://github.com/lhnguyen102/cuTAGI/tree/main/data/mnist">MNIST data</a> in the repository.</em></p>
+
+<h2 id="3-create-the-model">3. Create the model</h2>
+
+<p>In this example we will create a model of two convolutional layers, a batch size of 16 and will use hierarchical softmax for the classification task. Find out more about the <a href="modules/models?id=_2-conv-mnist-classification-mlp-class">ConvBatchNormMLP class</a> and all its parameters.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Model
+</span><span class="n">net_prop</span> <span class="o">=</span> <span class="n">ConvBatchNormMLP</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="4-load-the-data">4. Load the data</h2>
+
+<p>The next step is to load the data. We will use the <a href="modules/data-loader?id=data-loader">MnistDataloader class</a> to load the data and we will pass the batch size and the data paths to the class.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Data loader
+</span><span class="n">class_data_loader</span> <span class="o">=</span> <span class="n">MnistDataloader</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="n">net_prop</span><span class="p">.</span><span class="n">batch_size</span><span class="p">)</span>
+<span class="n">data_loader</span> <span class="o">=</span> <span class="n">class_data_loader</span><span class="p">.</span><span class="n">process_data</span><span class="p">(</span><span class="n">x_train_file</span><span class="o">=</span><span class="n">x_train_file</span><span class="p">,</span>
+                                            <span class="n">y_train_file</span><span class="o">=</span><span class="n">y_train_file</span><span class="p">,</span>
+                                            <span class="n">x_test_file</span><span class="o">=</span><span class="n">x_test_file</span><span class="p">,</span>
+                                            <span class="n">y_test_file</span><span class="o">=</span><span class="n">y_test_file</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="5-create-the-classification-object">5. Create the classification object</h2>
+
+<p>Once we processed the data, we can create the classifier object. We will pass the number of epochs, the data loader, the network properties and the number of classes to the class. In this case the number of classes is 10 because we are classifying the MNIST dataset.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Train and test
+</span><span class="n">clas_task</span> <span class="o">=</span> <span class="n">Classifier</span><span class="p">(</span><span class="n">num_epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span>
+                      <span class="n">data_loader</span><span class="o">=</span><span class="n">data_loader</span><span class="p">,</span>
+                      <span class="n">net_prop</span><span class="o">=</span><span class="n">net_prop</span><span class="p">,</span>
+                      <span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Find out more about the <a href="modules/classifier.md">Classifier class</a>.</p>
+</blockquote>
+
+<h2 id="6-train-and-evaluate-the-model">6. Train and evaluate the model</h2>
+
+<p>Finally, we can train and evaluate the model. We will call the train and predict methods of the classifier object.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">clas_task</span><span class="p">.</span><span class="n">train</span><span class="p">()</span>
+<span class="n">clas_task</span><span class="p">.</span><span class="n">predict</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="7-results">7. Results</h2>
+
+<p>In this section we will see the performace of the model using cuTAGI and we will compare the results with the results of a backpropagation model.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Model</th>
+      <th style="text-align: center">Error Rate [%]</th>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">Hyperparameters</th>
+      <th style="text-align: center"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">e = 1</td>
+      <td style="text-align: center">e = E</td>
+      <td style="text-align: center">E</td>
+      <td style="text-align: center">B</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>TAGI</strong></td>
+      <td style="text-align: center">2.13</td>
+      <td style="text-align: center">0.96</td>
+      <td style="text-align: center">50</td>
+      <td style="text-align: center">16</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">BP</td>
+      <td style="text-align: center">-</td>
+      <td style="text-align: center">0.46</td>
+      <td style="text-align: center">300</td>
+      <td style="text-align: center">128</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>?&gt; The table above compares the classification accuracy with the results from <a href="https://link.springer.com/article/10.1007/s42452-019-1903-4">Lei et al.</a> where both approaches use a similar CNN architecture with 2 convolutional layers (32-64) and a fully connected layer with 150 hidden units in TAGI and 1280 hidden units in BP.</p>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/CivML-PolyMtl/cutagi-doc/edit/main/examples/cnn/batch-norm-mnist.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

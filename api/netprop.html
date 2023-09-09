@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>The NetProp class | cutagi-doc</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="The NetProp class" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Documentation Website for cuTAGI" />
+<meta property="og:description" content="Documentation Website for cuTAGI" />
+<link rel="canonical" href="https://civml-polymtl.github.io/cutagi-doc/api/netprop.html" />
+<meta property="og:url" content="https://civml-polymtl.github.io/cutagi-doc/api/netprop.html" />
+<meta property="og:site_name" content="cutagi-doc" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="The NetProp class" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"The NetProp class","url":"https://civml-polymtl.github.io/cutagi-doc/api/netprop.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/cutagi-doc/assets/css/style.css?v=ad49bdcd176b8336bb8e458acdc002c19aa48ff2">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/cutagi-doc/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://civml-polymtl.github.io/cutagi-doc/">cutagi-doc</a></h1>
+      
+
+      <h1 id="the-netprop-class">The NetProp class</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">NetProp</code> class is a base class for network properties defined in the backend C++/CUDA layer. It provides various attributes and methods for defining network architecture and properties.</p>
+
+<p><a href="https://github.com/miquelflorensa/cuTAGI/blob/main/pytagi/tagi_network.py" class="github-link"></a></p>
+<div class="github-icon-container">
+    <img src="../images/GitHub-Mark.png" alt="GitHub" height="32" width="64" />
+  </div>
+<div class="github-text-container">
+    Github Source code
+  </div>
+<p>&lt;/a&gt;</p>
+
+<h2 id="attributes">Attributes</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">layers</code>: A list containing different <a href="api/netprop?id=layer-code">layers</a> of the network architecture.</li>
+  <li><code class="language-plaintext highlighter-rouge">nodes</code>: A list containing the number of hidden units for each layer.</li>
+  <li><code class="language-plaintext highlighter-rouge">kernels</code>: A list containing the kernel sizes for convolutional layers.</li>
+  <li><code class="language-plaintext highlighter-rouge">strides</code>: A list containing the strides for convolutional layers.</li>
+  <li><code class="language-plaintext highlighter-rouge">widths</code>: A list containing the widths of the images.</li>
+  <li><code class="language-plaintext highlighter-rouge">heights</code>: A list containing the heights of the images.</li>
+  <li><code class="language-plaintext highlighter-rouge">filters</code>: A list containing the number of filters (depth of image) for each layer.</li>
+  <li><code class="language-plaintext highlighter-rouge">activation</code>: A list containing the <a href="api/netprop?id=activation-code">activation</a> function for each layer.</li>
+  <li><code class="language-plaintext highlighter-rouge">pads</code>: A list containing the padding applied to the images.</li>
+  <li><code class="language-plaintext highlighter-rouge">pad_types</code>: A list containing the types of padding.</li>
+  <li><code class="language-plaintext highlighter-rouge">shortcuts</code>: A list containing the layer indices for residual networks.</li>
+  <li><code class="language-plaintext highlighter-rouge">mu_v2b</code>: A NumPy array representing the mean of the observation noise squared.</li>
+  <li><code class="language-plaintext highlighter-rouge">sigma_v2b</code>: A NumPy array representing the standard deviation of the observation noise squared.</li>
+  <li><code class="language-plaintext highlighter-rouge">sigma_v</code>: A float representing the observation noise.</li>
+  <li><code class="language-plaintext highlighter-rouge">decay_factor_sigma_v</code>: A float representing the decaying factor for sigma v (default value: 0.99).</li>
+  <li><code class="language-plaintext highlighter-rouge">sigma_v_min</code>: A float representing the minimum value of the observation noise (default value: 0.3).</li>
+  <li><code class="language-plaintext highlighter-rouge">sigma_x</code>: A float representing the input noise noise.</li>
+  <li><code class="language-plaintext highlighter-rouge">is_idx_ud</code>: A boolean indicating whether or not to update only hidden units in the output layers.</li>
+  <li><code class="language-plaintext highlighter-rouge">is_output_ud</code>: A boolean indicating whether or not to update the output layer.</li>
+  <li><code class="language-plaintext highlighter-rouge">last_backward_layer</code>: An integer representing the index of the last layer whose hidden states are updated.</li>
+  <li><code class="language-plaintext highlighter-rouge">nye</code>: An integer representing the number of observations for hierarchical softmax.</li>
+  <li><code class="language-plaintext highlighter-rouge">noise_gain</code>: A float representing the gain for biases parameters relating to noise’s hidden states.</li>
+  <li><code class="language-plaintext highlighter-rouge">noise_type</code>: A string indicating whether the noise is homoscedastic or heteroscedastic.</li>
+  <li><code class="language-plaintext highlighter-rouge">batch_size</code>: An integer representing the number of batches of data.</li>
+  <li><code class="language-plaintext highlighter-rouge">input_seq_len</code>: An integer representing the sequence length for LSTM inputs.</li>
+  <li><code class="language-plaintext highlighter-rouge">output_seq_len</code>: An integer representing the sequence length for the outputs of the last layer.</li>
+  <li><code class="language-plaintext highlighter-rouge">seq_stride</code>: An integer representing the spacing between sequences for the LSTM layer.</li>
+  <li><code class="language-plaintext highlighter-rouge">multithreading</code>: A boolean indicating whether or not to run parallel computing using multiple threads.</li>
+  <li><code class="language-plaintext highlighter-rouge">collect_derivative</code>: A boolean indicating whether to enable the derivative computation mode.</li>
+  <li><code class="language-plaintext highlighter-rouge">is_full_cov</code>: A boolean indicating whether to enable the full covariance mode.</li>
+  <li><code class="language-plaintext highlighter-rouge">init_method</code>: A string representing the initialization method, e.g., He and Xavier.</li>
+  <li><code class="language-plaintext highlighter-rouge">device</code>: A string indicating either “cpu” or “cuda”.</li>
+  <li><code class="language-plaintext highlighter-rouge">ra_mt</code>: A float representing the momentum for the normalization layer.</li>
+</ul>
+
+<h2 id="example">Example</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pytagi</span> <span class="kn">import</span> <span class="n">NetProp</span>
+
+<span class="k">class</span> <span class="nc">RegressionMLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
+    <span class="s">"""Multi-layer perceptron for regression task"""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">13</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">activations</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v</span> <span class="o">=</span> <span class="mf">0.3</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sigma_v_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="s">"cpu"</span>
+</code></pre></div></div>
+
+<h2 id="layer-code">Layer Code</h2>
+<p>The following layer codes are used to represent different types of layers in the network:</p>
+
+<ul>
+  <li>1: Fully-connected layer</li>
+  <li>2: Convolutional layer</li>
+  <li>21: Transpose convolutional layer</li>
+  <li>3: Max pooling layer (currently not supported)</li>
+  <li>4: Average pooling</li>
+  <li>5: Layer normalization</li>
+  <li>6: Batch normalization</li>
+  <li>7: LSTM layer</li>
+</ul>
+
+<h2 id="activation-code">Activation Code</h2>
+<p>The following activation codes are used to represent different activation functions:</p>
+
+<ul>
+  <li>0: No activation</li>
+  <li>1: Tanh</li>
+  <li>2: Sigmoid</li>
+  <li>4: ReLU</li>
+  <li>5: Softplus</li>
+  <li>6: Leakyrelu</li>
+  <li>7: Mixture ReLU</li>
+  <li>8: Mixture bounded ReLU</li>
+  <li>9: Mixture sigmoid</li>
+  <li>10: Softmax with local linearization</li>
+  <li>11: Remax</li>
+  <li>12: Hierarchical softmax</li>
+</ul>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/CivML-PolyMtl/cutagi-doc/edit/main/api/netprop.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>
