@@ -21,10 +21,10 @@ jobs:
             source: ./
             destination: ./_site
 
-        - name: Create .nojekyll file
-          run: |
-            touch .nojekyll
-            mv .nojekyll ./_site/
+        - name: Modify _site directory permissions
+          run: sudo chmod -R 777 ./_site
+        - name: Copy .nojekyll file
+          run: cp .nojekyll ./_site/
 
         - name: List files
           run: ls -la ./_site 
