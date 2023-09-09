@@ -1,0 +1,7 @@
+include:
+  - "_sidebar.md"
+  - "api/_sidebar.md"
+  - "example/_sidebar.md"
+  - "guide/_sidebar.md"
+  - "modules/_sidebar.md"
+
