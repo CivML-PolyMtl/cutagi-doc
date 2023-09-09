@@ -15,20 +15,24 @@ jobs:
         - name: Setup Pages
           uses: actions/configure-pages@v3
 
-        - name: Build with Jekyll
-          uses: actions/jekyll-build-pages@v1
+        - name: Set up Ruby
+          uses: actions/setup-ruby@v1
           with:
-            source: ./
-            destination: ./_site
+            ruby-version: '2.7'  # or another version depending on your project's needs
+        - name: Install Jekyll
+          run: gem install jekyll
+        - name: Build with Jekyll
+          run: jekyll build --source ./ --destination ./_site
 
-        - name: Modify _site directory permissions
-          run: sudo chmod -R 777 ./_site
-        - name: Copy .nojekyll file
-          run: cp .nojekyll ./_site/
+        # # Copy nojekyll to bypass understore folder and file
+        # - name: Modify _site directory permissions
+        #   run: sudo chmod -R 777 ./_site
+        # - name: Copy .nojekyll file
+        #   run: cp .nojekyll ./_site/
+        # - name: List files
+        #   run: ls -la ./_site 
 
-        - name: List files
-          run: ls -la ./_site 
-
+        # Upload artifacts to be downlowed in the deployment step
         - name: Upload production-ready build files
           uses: actions/upload-artifact@v2
           with:
