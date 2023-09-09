@@ -7,46 +7,50 @@ on:
 
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7
-
-      - name: Install Jekyll
-        run: gem install jekyll bundler
-
-      - name: Build Jekyll Site
-        run: jekyll build
-
-      - name: Upload production-ready build files
-        uses: actions/upload-artifact@v2
-        with:
-          name: production-files
-          path: ./_site
+        - name: Checkout
+          uses: actions/checkout@v3
+        - name: Setup Pages
+          uses: actions/configure-pages@v3
+        - name: Build with Jekyll
+          uses: actions/jekyll-build-pages@v1
+          with:
+            source: ./
+            destination: ./_site
+        - name: Upload production-ready build files
+          uses: actions/upload-artifact@v2
+          with:
+            name: production-files
+            path: ./_site
 
   deploy:
-    name: Deploy
-    needs: build
+    # environment:
+    #   name: github-pages
+    #   url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    needs: build
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: production-files
-          path: ./_site
+        - name: Download artifact
+          uses: actions/download-artifact@v2
+          with:
+            name: production-files
+            path: ./_site
+  
+        - name: Deploy to GitHub Pages
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./_site
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
-        #   cname: www.hazone.me
+    # steps:
+    #   - name: Deploy to GitHub Pages
+    #     id: deployment
+    #     uses: actions/deploy-pages@v2
+    #     with:
+    #         github_token: ${{ secrets.GITHUB_TOKEN }}
+    #         publish_dir: ./dist
+    #       # cname: www.hazone.me  # Uncomment this line if you want to use a custom domain
