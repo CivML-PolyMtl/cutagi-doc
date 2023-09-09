@@ -14,15 +14,22 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
 
-      - name: Build project
-        run: # Add your build command here if necessary, otherwise remove this step
+      - name: Install Jekyll
+        run: gem install jekyll bundler
+
+      - name: Build Jekyll Site
+        run: jekyll build
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v2
         with:
           name: production-files
-          path: ./dist  # Specify the path where your built files are located
+          path: ./_site
 
   deploy:
     name: Deploy
@@ -35,11 +42,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: production-files
-          path: ./dist
+          path: ./_site
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # Make sure this matches the output directory of your build process
-        #   cname: www.tagiml.com
+          publish_dir: ./_site
+        #   cname: www.hazone.me
