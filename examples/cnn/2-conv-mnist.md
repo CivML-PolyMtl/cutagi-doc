@@ -26,7 +26,7 @@ from python_examples.model import ConvMLP
 
 ```
 
-?>Notice that this modules are described [here](modules/modules.md) and the source code is in the *python_examples* directory, in case you have the modules in another directory you must change this paths.
+?>Notice that these modules are described [here](modules/modules.md) and the source code is in the *python_examples* directory, in case you have the modules in another directory you must change this paths.
 
 ## 2. Prepare the data
 
@@ -41,11 +41,11 @@ x_test_file = "./data/mnist/t10k-images-idx3-ubyte"
 y_test_file = "./data/mnist/t10k-labels-idx1-ubyte"
 ```
 
-**You can find the used data in the [MNIST data](https://github.com/lhnguyen102/cuTAGI/tree/main/data/mnist) in the repository.*
+**You can find the data used in the [MNIST data](https://github.com/lhnguyen102/cuTAGI/tree/main/data/mnist) repository.*
 
 ## 3. Create the model
 
-In this example we will create a model of two convolutional layers, a batch size of 16 and will use hierarchical softmax for the classification task. Find out more about the [ConvMLP class](modules/models?id=_2-conv-mnist-classification-mlp-class) and all its parameters.
+In this example we create a model with two convolutional layers, a batch size of 16 and use the hierarchical softmax for the classification task. Find out more about the [ConvMLP class](modules/models?id=_2-conv-mnist-classification-mlp-class) and all its parameters.
 
 ```python
 # Model
@@ -67,7 +67,7 @@ data_loader = class_data_loader.process_data(x_train_file=x_train_file,
 
 ## 5. Create the classification object
 
-Once we processed the data, we can create the classifier object. We will pass the number of epochs, the data loader, the network properties and the number of classes to the class. In this case the number of classes is 10 because we are classifying the MNIST dataset.
+Once we processed the data, we create the classifier object. We pass the number of epochs, the data loader, the network properties and the number of classes to the class. In this case the number of classes is 10 because we are working with the MNIST dataset 0-9.
 
 ```python
 # Train and test
@@ -81,7 +81,7 @@ clas_task = Classifier(num_epochs=num_epochs,
 
 ## 6. Train and evaluate the model
 
-Finally, we can train and evaluate the model. We will call the train and predict methods of the classifier object.
+Finally, we train and evaluate the model using TAGI. We will call the train and predict methods of the classifier object.
 
 ```python
   clas_task.train()
@@ -90,7 +90,7 @@ Finally, we can train and evaluate the model. We will call the train and predict
 
 ## 7. Results
 
-In this section we will see the performace of the model using cuTAGI and we will compare the results with the results of a backpropagation model.
+In this section we review the performace of the model using cuTAGI and we compare the results with the results from a backprop-trained model.
 
 |  Model   | Error Rate [%] |       | Hyperparameters |       |
 | :------: | :------------: | :---: | :-------------: | :---: |

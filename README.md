@@ -1,6 +1,6 @@
 # py/cuTAGI Documentation
 
-cuTAGI is an open-source Bayesian neural networks library that is based on Tractable Approximate Gaussian Inference (TAGI) theory. It supports various neural network architectures such as full-connected, convolutional, and transpose convolutional layers, as well as skip connections, pooling and normalization layers. cuTAGI is capable of performing different tasks such as supervised, unsupervised, and reinforcement learning. This library has a python API called pyTAGI that allows users to easily use the C++ and CUDA libraries.
+cuTAGI is an open-source Bayesian neural networks library that is based on the Tractable Approximate Gaussian Inference (TAGI) theory. It supports various neural network architectures such as fully-connected, convolutional, and transpose convolutional layers, as well as skip connections, pooling and normalization layers. cuTAGI is capable of performing different tasks such as supervised, unsupervised, and reinforcement learning. This library has a python API called pyTAGI that allows users to easily use the C++ and CUDA libraries.
 
 
 ## Getting Started
@@ -12,11 +12,11 @@ To get started with using our library, check out our:
 
 ## Examples
 
-In this section, you will find a series of [examples](examples/examples.md) for each available architecture that you can use as a starting point.
+In this section, you will find a series of [examples](examples/examples.md) that you can use as a starting point for each of the available architecture.
 
 ## API
 
-Check out our [API reference](api/api.md) for a complete list of all the functions and classes in our library.
+Check out our [API reference](api/api.md) for a complete list of the functions and classes in our library.
 
 ## Modules
 
@@ -24,7 +24,7 @@ pyTAGI already includes a set of modules that allow users to make their own mode
 
 ## Contributing
 
-We welcome contributions from the community by  1) forking the project, 2) Create a feature branch, and 3) Commit your changes.
+We welcome contributions from the community by 1) forking the project, 2) Create a feature branch, and 3) Commit your changes.
 
 ## Support
 

@@ -3,11 +3,11 @@
 * CMake>=3.23
 * CUDA toolkit (optional)
 
-## `pytagi` Installation 
-`pytagi` is a Python wrapper of C++/CUDA backend for TAGI method. The developers can install either  [distributed](#pypi-installation) or [local](#local-installation) versions of `pytagi`. Currently `pytagi` only supports Python version >=3.9 on both MacOS and Ubuntu. 
+## `pyTAGI` Installation 
+`pyTAGI` is a Python wrapper of C++/CUDA backend for TAGI method. The developers can install either the [distributed](#pypi-installation) or [local](#local-installation) versions of `pyTAGI`. Currently `pyTAGI` only supports Python version >=3.9 on both MacOS and Ubuntu. 
 
 ### Create Miniconda Environment
-We recommend installing miniconda for managing Python environment, yet `pytagi` works well with other alternatives.
+We recommend installing miniconda for managing Python environment, yet `pyTAGI` works well with other alternatives.
 1. Install miniconda by following these [instructions](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#system-requirements) 
 2. Create a conda environment
     ```
@@ -24,11 +24,11 @@ We recommend installing miniconda for managing Python environment, yet `pytagi` 
     ```
     pip install -r requirements.txt
     ```
-3. Install `pytagi`
+3. Install `pyTAGI`
     ```
     pip install pytagi
     ```
-4. Test `pytagi` package
+4. Test `pyTAGI` package
     ```sh
     python -m python_examples.regression_runner
     ```
@@ -46,17 +46,17 @@ NOTE: This PyPI distributed version does not require the codebase in this reposi
     ```
     pip install -r requirements.txt
     ```
-5. Install `pytagi` package
+5. Install `pyTAGI` package
     ```sh
     pip install .
     ```
-6. Test `pytagi` package
+6. Test `pyTAGI` package
     ```sh
     python -m python_examples.regression_runner
     ```
 
-## `cutagi` Installation
-`cutagi` is the native version implemented in C++/CUDA for TAGI method. We highly recommend installing cuTAGI using Docker method to facilitate the installation.
+## `cuTAGI` Installation
+`cuTAGI` is the native version implemented in C++/CUDA for TAGI method. We highly recommend installing cuTAGI using Docker method to facilitate the installation.
 
 
 ### Docker Build

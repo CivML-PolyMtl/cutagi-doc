@@ -1,6 +1,6 @@
 # The Classifier class
 
-The `Classifier` class is responsible for performing image classification using the TAGI algorithm.
+The `Classifier` class is responsible for performing image classification tasks using the TAGI method.
 
 <a href="https://github.com/lhnguyen102/cuTAGI/blob/main/python_examples/classification.py" class="github-link">
   <div class="github-icon-container">

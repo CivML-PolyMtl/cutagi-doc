@@ -25,7 +25,7 @@ from python_examples.data_loader import ClassificationDataloader
 from pytagi import NetProp
 ```
 
-?>Notice that this modules are described [here](modules/modules.md) and the source code is in the *python_examples* directory, in case you have the modules in another directory you must change this paths.
+?>Notice that these modules are described [here](modules/modules.md) and the source code is in the *python_examples* directory, in case you have the modules in another directory you must change this paths.
 
 ## 2. Prepare the data
 
@@ -39,11 +39,11 @@ x_test_file = "./data/cifar/x_test.csv"
 y_test_file = "./data/cifar/y_test.csv"
 ```
 
-**You can find the used data in the [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html) website.*
+**You can find the data used on the [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html) website.*
 
 ## 3. Create the model
 
-In this example we will create a model of three convolutional layers, a batch size of 16 and will use hierarchical softmax for the classification task. Find out more about the architecture in [Analytically Tractable Inference in Deep Neural Networks](https://arxiv.org/pdf/2103.05461.pdf).
+In this example we create a model with three convolutional layers, a batch size of 16 and we use hierarchical softmax for the classification task. Find out more about the architecture in [Analytically Tractable Inference in Deep Neural Networks](https://arxiv.org/pdf/2103.05461.pdf).
 
 ```python
 class ConvCifarMLP(NetProp):
@@ -91,7 +91,7 @@ data_loader = class_data_loader.process_data(x_train_file=x_train_file,
 
 ## 5. Create the classification object
 
-Once we processed the data, we can create the classifier object. We will pass the number of epochs, the data loader, the network properties and the number of classes to the class. In this case the number of classes is 10 because we are classifying the CIFAR10 dataset.
+Once we processed the data, we create the classifier object. We pass the number of epochs, the data loader, the network properties and the number of classes to the class. In this case the number of classes is 10 because we are working with the CIFAR10 dataset.
 
 ```python
 # Train and test
@@ -105,7 +105,7 @@ clas_task = Classifier(num_epochs=num_epochs,
 
 ## 6. Train and evaluate the model
 
-Finally, we can train and evaluate the model. We will call the train and predict methods of the classifier object.
+Finally, we train and evaluate the model using TAGI. We call the train and predict methods of the classifier object.
 
 ```python
   clas_task.train()
@@ -114,7 +114,7 @@ Finally, we can train and evaluate the model. We will call the train and predict
 
 ## 7. Results
 
-In this section we will see the performace of the model using cuTAGI and we will compare the results with the results of a backpropagation model.
+In this section we review the performace of the model using cuTAGI and we compare the results with the results of a backprop-trained model.
 
 |  Model   | Error Rate [%] |       | Hyperparameters |       |
 | :------: | :------------: | :---: | :-------------: | :---: |

@@ -28,7 +28,7 @@ from python_examples.data_loader import MnistDataloader
 from python_examples.model import MnistDecoder, MnistEncoder
 ```
 
-?>Notice that this modules are described [here](modules/modules.md) and the source code is in the *python_examples* directory, in case you have the modules in another directory you must change this paths.
+?>Notice that these modules are described [here](modules/modules.md) and the source code is in the *python_examples* directory, in case you have the modules in another directory you must change this paths.
 
 ## 2. Prepare the data
 
@@ -49,7 +49,7 @@ y_test_file =  "./data/cifar10/y_test.csv"
 **You can find the used data in the [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html) website.*
 ## 3. Create the model
 
-In this example we will create a model consisting in an encoder and a decoder that will allow us to reconstruct the original images from the CIFAR10 dataset. Find out more about the architecture in [Analytically Tractable Inference in Deep Neural Networks](https://arxiv.org/pdf/2103.05461.pdf).
+In this example we create a model consisting in an encoder and a decoder that allow reconstructing the original images from the CIFAR10 dataset. Find out more about the architecture in [Analytically Tractable Inference in Deep Neural Networks](https://arxiv.org/pdf/2103.05461.pdf).
 
 ```python
 class CifarEncoder(NetProp):
@@ -107,7 +107,7 @@ decoder_prop = CifarDecoder()
 
 ## 4. Load the data
 
-The next step is to load the data. We will use the [ClassificationDataloader class](modules/data-loader?id=data-loader) to load the data from a csv and we will pass the batch size and the data paths to the class.
+The next step is to load the data. We use the [ClassificationDataloader class](modules/data-loader?id=data-loader) to load the data from a csv and we pass the batch size and the data paths to the class.
 
 ```python
 # Data loader
@@ -120,7 +120,7 @@ data_loader = ae_data_loader.process_data(x_train_file=x_train_file,
 
 ## 5. Create visualizer
 
-In order to visualize the reconstruction of the images we can use the PredictionViz class.
+In order to visualize reconstructed images we can use the PredictionViz class.
 
 ```python
 # Visualization
@@ -131,11 +131,11 @@ viz = ImageViz(task_name="autoencoder",
                img_size=img_size)
 ```
 
-> Learn more about  PredictionViz class [here](https://github.com/lhnguyen102/cuTAGI/blob/main/visualizer.py).
+> Learn more about PredictionViz class [here](https://github.com/lhnguyen102/cuTAGI/blob/main/visualizer.py).
 
 ## 6. Create the autoencoder object
 
-Once we processed the data, we can create the autoencoder object. We will pass the number of epochs, the data loader, the network properties and vizualization object to the class.
+Once we processed the data, we create the autoencoder object. We pass the number of epochs, the data loader, the network properties and vizualization object to the class.
 
 ```python
 # Train and test
@@ -150,7 +150,7 @@ ae_task = Autoencoder(num_epochs=num_epochs,
 
 ## 7 Train and evaluate the model
 
-Finally, we can train and evaluate the model. We will call the train and predict methods of the autoencoder object.
+Finally, we train and evaluate the model using TAGi by calling the train and predict methods of the autoencoder object.
 
 ```python
 ae_task.train()
@@ -159,6 +159,6 @@ ae_task.predict()
 
 ## 8. Results
 
-If we created the visualizer object, we can visualize the results. The following figure shows the reconstructed images.
+We can visualize the results the visualizer object. The following figure shows the reconstructed images.
 
 ![autoencoder mnist](../../images/cifar_autoencoder_disp.png)

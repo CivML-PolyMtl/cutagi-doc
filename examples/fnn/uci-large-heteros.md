@@ -2,7 +2,7 @@
 
 **Author:** [Miquel Florensa](https://www.linkedin.com/in/miquel-florensa/)  
 **Date:** 2023/05/23  
-**Description:** This example shows how predict the housing prices in Boston using a FNN with heteroscedasticity.  
+**Description:** This example shows how to perform a regression task on the Boston housing prices dataset using a FNN with heteroscedasticity.  
 
 <a href="https://github.com/miquelflorensa/miquelflorensa.github.io/blob/main/code/uci_heteros_regression_runner.py" class="github-link">
   <div class="github-icon-container">
@@ -23,11 +23,11 @@ from python_examples.regression import Regression
 from pytagi import NetProp
 ```
 
-?>Notice that this modules are described [here](modules/modules.md) and the source code is in the *python_examples* directory, in case you have the modules in another directory you must change this paths.
+?>Notice that these modules are described [here](modules/modules.md) and the source code is in the *python_examples* directory, in case you have the modules in another directory you must change this paths.
 
 ## 2. Prepare the data
 
-In this simple example we will use the Boston housing dataset and we will try to predict the housing prices given 13 caracteristics.
+In this simple example we will use the Boston housing dataset and we will predict the housing prices along with heteroscedastic uncertainty given the 13 explanatory variables.
 
 ```python
 # User-input
@@ -40,11 +40,11 @@ x_test_file = "./data/UCI/Boston_housing/x_test.csv"
 y_test_file = "./data/UCI/Boston_housing/y_test.csv"
 ```
 
-**You can find the used data in the [UCI data](https://github.com/lhnguyen102/cuTAGI/tree/main/data/UCI) in the repository.*
+**You can find the data used in the [UCI data](https://github.com/lhnguyen102/cuTAGI/tree/main/data/UCI) repository.*
 
 ## 3. Create the model
 
-We will use a FNN with a simple architecture as defined in the HeterosUCIMLP class wich is suited for this regression problem with heteroscedasticity.
+We use a FNN with a simple architecture as defined in the HeterosUCIMLP class wich is suited for this regression problem with heteroscedasticity.
 
 ```python
 class HeterosUCIMLP(NetProp):
@@ -72,7 +72,7 @@ net_prop = HeterosUCIMLP()
 
 ## 4. Load the data
 
-We will make use of the [RegressionDataLoader](modules/data-loader?id=data-loader) class to load and process the data. The *process_data* function requires the input and output test and training files in a **csv** format.
+We use of the [RegressionDataLoader](modules/data-loader?id=data-loader) class to load and process the data. The *process_data* function requires the input and output test and training files in a **csv** format.
 
 ```python
 # Data loader
@@ -88,7 +88,7 @@ data_loader = reg_data_loader.process_data(x_train_file=x_train_file,
 
 ## 5. Train and evaluate the model
 
-Using the [regression class](modules/regression?id=regression-class) that makes use of TAGI, we will train and test the model. When doing the prediction we can specify the standard deviation factor to calculate the confidence intervals.
+Using the [regression class](modules/regression?id=regression-class) we train and test the model using TAGI. When doing the prediction step we can specify the standard deviation factor defining the confidence interval.
 
 ```python
 reg_task = Regression(num_epochs=num_epochs,
@@ -101,7 +101,7 @@ reg_task.predict()
 
 ## 6. Results
 
-At the end of the execution the results will be printed in the console as seen below.
+At the end of the execution the results are printed in the console as seen below.
 
 > MSE           :  4.66  
 > Log-likelihood: -3.84
