@@ -1,6 +1,6 @@
 # TimeSeriesForecaster class
 
-The `TimeSeriesForecaster` class is responsible for time series forecasting using the TAGI algorithm.
+The `TimeSeriesForecaster` class is responsible for time-series forecasting tasks using the TAGI method.
 
 <a href="https://github.com/lhnguyen102/cuTAGI/blob/main/python_examples/time_series_forecaster.py" class="github-link">
   <div class="github-icon-container">
@@ -56,7 +56,7 @@ def predict(self) -> None:
     """Make prediction for time series using TAGI"""
 ```
 
-Makes predictions for time series using the TAGI algorithm. It performs the following steps:
+Makes predictions for time series using the TAGI method. It performs the following steps:
 1. Initializes inputs.
 2. Makes predictions using the trained network.
 3. Unnormalizes the predictions.

@@ -1,4 +1,4 @@
 - **User Guide**
   
-  - [Installing cuTAGI](guide/install.md)
-  - [Quick Tutorial](guide/quick-tutorial.md)
+  - [Installing py/cuTAGI](guide/install.md)
+  - [Quick tutorial](guide/quick-tutorial.md)

@@ -1,6 +1,6 @@
 # The Param class
 
-The `Param` class is a frontend API for weight and biases.
+The `Param` class is a front-end API for weight and biases.
 
 <a href="https://github.com/miquelflorensa/cuTAGI/blob/main/pytagi/tagi_network.py" class="github-link">
   <div class="github-icon-container">

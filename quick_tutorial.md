@@ -2,11 +2,11 @@
 
 ## Introduction
 
-In this tutorial, we will see how to use pytagi to solve a simple regression problem. We will use a 1D toy dataset and a feedforward neural network (FNN) with a simple architecture.
+In this tutorial, we will see how to use pyTAGI to solve a simple regression problem. We will use a 1D toy dataset and a feedforward neural network (FNN) with a simple architecture.
 
 ## Define user input and data
 
-In this simple example, we will use a 1D toy dataset. The dataset is composed of 10 training samples and 100 test samples.
+In this simple example, we will use a 1D toy dataset. The dataset is composed of 10 training and 100 test observations.
 
 ```python
 # User-input
@@ -72,7 +72,7 @@ The results are shown in the following figure. The black line is the true functi
 
 ## Regression MLP class
 
-The model will have one input layer, one hidden layer and one output layer. The input layer will have a single variable, the hidden layer will have 50 hidden units and the output layer will have one variable. The activation function of the hidden layer will be ReLU and the batch size will be four. The observation noise's standard deviation and its minimum will be 0.06. When one wich to use a scheduler to decrease `sigma_v` over epochs, `sigma_v_min` should be choosen to be smaller than `sigma_v` (Note: this is commonly the case for CNN).
+The model has one input layer, one hidden layer and one output layer. The input layer has a single variable, the hidden layer has 50 hidden units and the output layer has one variable. The activation function of the hidden layer is ReLU and the batch size is four. The observation noise's standard deviation and its minimum are 0.06 so that the decaying scheduler is disabled. When one wish to use a scheduler to decrease `sigma_v` over epochs, `sigma_v_min` should be choosen to be smaller than `sigma_v` (Note: this is commonly the case for CNNs).
 
 ```python
 # Model

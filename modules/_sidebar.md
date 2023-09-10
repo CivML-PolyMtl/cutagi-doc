@@ -4,6 +4,6 @@
   - [Dataloader](modules/data-loader.md)
   - [Regression](modules/regression.md)
   - [Classification](modules/classification.md)
-  - [Time Series Forecaster](modules/time_series_forecaster.md)
+  - [Time-Series forecaster](modules/time_series_forecaster.md)
   - [Autoencoder](modules/autoencoder.md)
 
