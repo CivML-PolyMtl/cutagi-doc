@@ -1,6 +1,6 @@
 # metric.py
 
-Measure the accuracy of the prediction.
+Metrics used to measure the accuracy of the predictions.
 
 <a href="https://github.com/miquelflorensa/cuTAGI/blob/main/pytagi/metric.py" class="github-link">
   <div class="github-icon-container">
@@ -35,7 +35,7 @@ def log_likelihood(prediction: np.ndarray, observation: np.ndarray, std: np.ndar
     """Compute the averaged log-likelihood"""
 ```
 
-> Calculates the averaged log-likelihood between the prediction and observation arrays.
+> Calculates the average log-likelihood between the prediction and observation arrays.
 
 **Parameters**
 - `prediction` (numpy.ndarray): Array containing the predicted values.
@@ -43,7 +43,7 @@ def log_likelihood(prediction: np.ndarray, observation: np.ndarray, std: np.ndar
 - `std` (numpy.ndarray): Array containing the standard deviations.
 
 **Returns**
-- `float`: Averaged log-likelihood.
+- `float`: Average log-likelihood.
 
 ## *rmse* method
 

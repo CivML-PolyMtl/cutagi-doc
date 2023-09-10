@@ -22,7 +22,7 @@
 {"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"Models","url":"https://www.tagiml.com/modules/models.html"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=41ef9b6436ca28f9085f61aa832cc456dd43828f">
+    <link rel="stylesheet" href="/assets/css/style.css?v=67c9a0b32743a4bee5d60aab07eb065dd1c91511">
     <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
 
 <!-- Setup Google Analytics -->
@@ -45,7 +45,7 @@
 
 <p>?&gt; <strong>All models explained in this document can be found in the <a href="https://github.com/lhnguyen102/cuTAGI/blob/main/python_examples/model.py">python examples</a> source code.</strong></p>
 
-<p>In order to use the pyTAGI library, it is necessary to create a model class that inherits from the NetProp class. This NetProp class is essentially a wrapper from cuTAGI and is described in detail in its <a href="api/tagi-network.md">Tagi Network API</a> section. Thus, it will be required to import this class.</p>
+<p>In order to use the pyTAGI library, it is necessary to create a model class that inherits from the NetProp class. This NetProp class is essentially a wrapper from cuTAGI and is described in detail in its <a href="api/tagi-network.md">Tagi Network API</a> section. Thus, it is required to import this class.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pytagi</span> <span class="kn">import</span> <span class="n">NetProp</span>
 </code></pre></div></div>
@@ -106,7 +106,7 @@
 
 <h2 id="regression-mlp-class">Regression MLP class</h2>
 
-<p>This simple model has one input layer, one hidden layer and one output layer. The input layer will have a single variable, the hidden layer will have 50 hidden units and the output layer will have one variable. The activation function of the hidden layer will be ReLU and the batch size will be four. The observation noise’s standard deviation and its minimum will be 0.06. When one wich to use a scheduler to decrease <code class="language-plaintext highlighter-rouge">sigma_v</code> over epochs, <code class="language-plaintext highlighter-rouge">sigma_v_min</code> should be choosen to be smaller than <code class="language-plaintext highlighter-rouge">sigma_v</code> (Note: this is commonly the case for CNN).</p>
+<p>This simple model has one input layer, one hidden layer and one output layer. The input layer will have a single variable, the hidden layer has 50 hidden units and the output layer has one variable. The activation function of the hidden layer is ReLU and the batch size is four. The observation noise’s standard deviation and its minimum are 0.06 so the decaying scheduler is disabled. When one wich to use a scheduler to decrease <code class="language-plaintext highlighter-rouge">sigma_v</code> over epochs, <code class="language-plaintext highlighter-rouge">sigma_v_min</code> should be choosen to be smaller than <code class="language-plaintext highlighter-rouge">sigma_v</code> (Note: this is commonly the case for CNNs).</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Model
 </span><span class="kn">from</span> <span class="nn">pytagi</span> <span class="kn">import</span> <span class="n">NetProp</span>

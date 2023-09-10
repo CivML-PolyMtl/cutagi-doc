@@ -22,7 +22,7 @@
 {"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"cutagi-doc","url":"https://www.tagiml.com/guide/quick-tutorial.html"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=41ef9b6436ca28f9085f61aa832cc456dd43828f">
+    <link rel="stylesheet" href="/assets/css/style.css?v=67c9a0b32743a4bee5d60aab07eb065dd1c91511">
     <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
 
 <!-- Setup Google Analytics -->
@@ -53,11 +53,11 @@ Copyright (c) 2023 Miquel Florensa & Luong-Ha Nguyen & James-A. Goulet. Some rig
 
 <h2 id="introduction">Introduction</h2>
 
-<p>In this tutorial, we will see how to use pytagi to solve a simple regression problem. We will use a 1D toy dataset and a feedforward neural network (FNN) with a simple architecture.</p>
+<p>In this tutorial, we present how to use pyTAGI to perform a simple regression problem. We use a 1D toy dataset and a feedforward neural network (FNN) with a simple architecture.</p>
 
 <h2 id="define-user-input-and-data">Define user input and data</h2>
 
-<p>In this simple example, we will use a 1D toy dataset. The dataset is composed of 10 training samples and 100 test samples and can be found in the <a href="https://github.com/lhnguyen102/cuTAGI/tree/main/data/toy_example">github repository</a>.</p>
+<p>In this simple example, we will use a 1D toy dataset. The dataset is composed of 10 training and 100 test observations and can be found in the <a href="https://github.com/lhnguyen102/cuTAGI/tree/main/data/toy_example">github repository</a>.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># User-input
 </span><span class="n">num_inputs</span> <span class="o">=</span> <span class="mi">1</span>
@@ -70,7 +70,7 @@ Copyright (c) 2023 Miquel Florensa & Luong-Ha Nguyen & James-A. Goulet. Some rig
 
 <h2 id="build-regression-model">Build Regression Model</h2>
 
-<p>We will use a FNN with a simple architecture. We will use the RegressionMLP class already defined and consistent with this basic regression problem (you can find the class implementation <a href="modules/models?id=regression-mlp-class">here</a>).</p>
+<p>We use a FNN with a simple architecture as defined in the RegressionMLP class (you can find the class implementation <a href="modules/models?id=regression-mlp-class">here</a>).</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Model
 </span><span class="n">net_prop</span> <span class="o">=</span> <span class="n">RegressionMLP</span><span class="p">()</span>
@@ -80,7 +80,7 @@ Copyright (c) 2023 Miquel Florensa & Luong-Ha Nguyen & James-A. Goulet. Some rig
 
 <h2 id="data-loader">Data loader</h2>
 
-<p>We will make use of the <a href="modules/data-loader.md">RegressionDataLoader</a> class to load and process the data. The <em>process_data</em> function requires the input and output test and training files in a <strong>csv</strong> format.</p>
+<p>We use the <a href="modules/data-loader.md">RegressionDataLoader</a> class to load and process the data. The <em>process_data</em> function requires the input and output test and training files in a <strong>csv</strong> format.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Data loader
 </span><span class="n">reg_data_loader</span> <span class="o">=</span> <span class="n">RegressionDataLoader</span><span class="p">(</span><span class="n">num_inputs</span><span class="o">=</span><span class="n">num_inputs</span><span class="p">,</span>
@@ -95,7 +95,7 @@ Copyright (c) 2023 Miquel Florensa & Luong-Ha Nguyen & James-A. Goulet. Some rig
 
 <h2 id="train-and-test-the-model">Train and test the model</h2>
 
-<p>Using the <a href="modules/regression?id=regression-class">regression class</a> that makes use of TAGI, we will train and test the model. In order to perform the task we will also need to specify the number of epochs.</p>
+<p>Using the <a href="modules/regression?id=regression-class">regression class</a>, we train and test the model using TAGI. Note that in order to perform the task we need to specify the number of epochs.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Optional: Visualize the test using visualizer.py
 </span><span class="n">viz</span> <span class="o">=</span> <span class="n">PredictionViz</span><span class="p">(</span><span class="n">task_name</span><span class="o">=</span><span class="s">"regression"</span><span class="p">,</span> <span class="n">data_name</span><span class="o">=</span><span class="s">"toy1D"</span><span class="p">)</span>
@@ -115,7 +115,7 @@ Copyright (c) 2023 Miquel Florensa & Luong-Ha Nguyen & James-A. Goulet. Some rig
 
 <h2 id="results">Results</h2>
 
-<p>Since we have created a vizualization object that we passed to the regression class, at the end of the execution we will be able to see the results of the prediction. The black line is the true function, the red line is the predicted function and the red zone is the confidence intervals.</p>
+<p>Since we have created a vizualization object that we passed to the regression class, at the end of the execution we plot the results of the predictions. The black line is the true function, the red line is the predicted expected values and the red region is the confidence interval.</p>
 
 <p><img src="/images/1D_toy_regression.png" alt="1D toy regression problem" /></p>
 

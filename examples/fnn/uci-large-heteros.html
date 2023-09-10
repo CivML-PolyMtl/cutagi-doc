@@ -22,7 +22,7 @@
 {"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"UCI regression problem with heteroscedasticity","url":"https://www.tagiml.com/examples/fnn/uci-large-heteros.html"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=41ef9b6436ca28f9085f61aa832cc456dd43828f">
+    <link rel="stylesheet" href="/assets/css/style.css?v=67c9a0b32743a4bee5d60aab07eb065dd1c91511">
     <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
 
 <!-- Setup Google Analytics -->
@@ -45,9 +45,9 @@
 
 <p><strong>Author:</strong> <a href="https://www.linkedin.com/in/miquel-florensa/">Miquel Florensa</a><br />
 <strong>Date:</strong> 2023/05/23<br />
-<strong>Description:</strong> This example shows how predict the housing prices in Boston using a FNN with heteroscedasticity.</p>
+<strong>Description:</strong> This example shows how to perform a regression task on the Boston housing prices dataset using a FNN with heteroscedasticity.</p>
 
-<p><a href="https://github.com/miquelflorensa/miquelflorensa.github.io/blob/main/code/uci_heteros_regression_runner.py" class="github-link"></a></p>
+<p><a href="https://github.com/CivML-PolyMtl/cutagi-doc/tree/main/code/uci_heteros_regression_runner.py" class="github-link"></a></p>
 <div class="github-icon-container">
     <img src="../../images/GitHub-Mark.png" alt="GitHub" height="32" width="64" />
   </div>
@@ -65,11 +65,11 @@
 <span class="kn">from</span> <span class="nn">pytagi</span> <span class="kn">import</span> <span class="n">NetProp</span>
 </code></pre></div></div>
 
-<p>?&gt;Notice that this modules are described <a href="modules/modules.md">here</a> and the source code is in the <em>python_examples</em> directory, in case you have the modules in another directory you must change this paths.</p>
+<p>?&gt;Notice that these modules are described <a href="modules/modules.md">here</a> and the source code is in the <em>python_examples</em> directory, in case you have the modules in another directory you must change this paths.</p>
 
 <h2 id="2-prepare-the-data">2. Prepare the data</h2>
 
-<p>In this simple example we will use the Boston housing dataset and we will try to predict the housing prices given 13 caracteristics.</p>
+<p>In this simple example we will use the Boston housing dataset and we will predict the housing prices along with heteroscedastic uncertainty given the 13 explanatory variables.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># User-input
 </span><span class="n">num_inputs</span> <span class="o">=</span> <span class="mi">13</span>     <span class="c1"># 1 explanatory variable
@@ -81,11 +81,11 @@
 <span class="n">y_test_file</span> <span class="o">=</span> <span class="s">"./data/UCI/Boston_housing/y_test.csv"</span>
 </code></pre></div></div>
 
-<p><em>*You can find the used data in the <a href="https://github.com/lhnguyen102/cuTAGI/tree/main/data/UCI">UCI data</a> in the repository.</em></p>
+<p><em>*You can find the data used in the <a href="https://github.com/lhnguyen102/cuTAGI/tree/main/data/UCI">UCI data</a> repository.</em></p>
 
 <h2 id="3-create-the-model">3. Create the model</h2>
 
-<p>We will use a FNN with a simple architecture as defined in the HeterosUCIMLP class wich is suited for this regression problem with heteroscedasticity.</p>
+<p>We use a FNN with a simple architecture as defined in the HeterosUCIMLP class wich is suited for this regression problem with heteroscedasticity.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">HeterosUCIMLP</span><span class="p">(</span><span class="n">NetProp</span><span class="p">):</span>
     <span class="s">"""Multi-layer preceptron for regression task where the
@@ -111,7 +111,7 @@
 
 <h2 id="4-load-the-data">4. Load the data</h2>
 
-<p>We will make use of the <a href="modules/data-loader?id=data-loader">RegressionDataLoader</a> class to load and process the data. The <em>process_data</em> function requires the input and output test and training files in a <strong>csv</strong> format.</p>
+<p>We use of the <a href="modules/data-loader?id=data-loader">RegressionDataLoader</a> class to load and process the data. The <em>process_data</em> function requires the input and output test and training files in a <strong>csv</strong> format.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Data loader
 </span><span class="n">reg_data_loader</span> <span class="o">=</span> <span class="n">RegressionDataLoader</span><span class="p">(</span><span class="n">num_inputs</span><span class="o">=</span><span class="n">num_inputs</span><span class="p">,</span>
@@ -126,7 +126,7 @@
 
 <h2 id="5-train-and-evaluate-the-model">5. Train and evaluate the model</h2>
 
-<p>Using the <a href="modules/regression?id=regression-class">regression class</a> that makes use of TAGI, we will train and test the model. When doing the prediction we can specify the standard deviation factor to calculate the confidence intervals.</p>
+<p>Using the <a href="modules/regression?id=regression-class">regression class</a> we train and test the model using TAGI. When doing the prediction step we can specify the standard deviation factor defining the confidence interval.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">reg_task</span> <span class="o">=</span> <span class="n">Regression</span><span class="p">(</span><span class="n">num_epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span>
                       <span class="n">data_loader</span><span class="o">=</span><span class="n">data_loader</span><span class="p">,</span>
@@ -138,7 +138,7 @@
 
 <h2 id="6-results">6. Results</h2>
 
-<p>At the end of the execution the results will be printed in the console as seen below.</p>
+<p>At the end of the execution the results are printed in the console as seen below.</p>
 
 <blockquote>
   <p>MSE           :  4.66<br />

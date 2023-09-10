@@ -30,7 +30,7 @@ def __init__(self) -> None:
 
 # The Utils class
 
-Frontend for utility functions from C++/CUDA backend.
+Front end for utility functions from C++/CUDA backend.
 
 ## Attributes
 
@@ -75,7 +75,7 @@ def label_to_one_hot(self, labels: np.ndarray, num_classes: int) -> np.ndarray:
 - `num_classes`: Total number of classes.
 
 **Returns**
-- `one_hot`: One hot encoder as a NumPy array.
+- `one_hot`: One-hot encoder as a NumPy array.
 
 ## *load_mnist_images* method
 

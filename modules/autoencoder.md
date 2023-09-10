@@ -1,6 +1,6 @@
 # Autoencoder class
 
-The `Autoencoder` class is responsible for performing the autoencoder task using the TAGI algorithm.
+The `Autoencoder` class is responsible for performing the autoencoder tasks using the TAGI method.
 
 <a href="https://github.com/miquelflorensa/cuTAGI/blob/main/python_examples/autoencoder.py" class="github-link">
   <div class="github-icon-container">

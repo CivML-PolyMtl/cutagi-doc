@@ -2,7 +2,7 @@
 
 ?> **All models explained in this document can be found in the [python examples](https://github.com/lhnguyen102/cuTAGI/blob/main/python_examples/model.py) source code.**
 
-In order to use the pyTAGI library, it is necessary to create a model class that inherits from the NetProp class. This NetProp class is essentially a wrapper from cuTAGI and is described in detail in its [Tagi Network API](api/tagi-network.md) section. Thus, it will be required to import this class.
+In order to use the pyTAGI library, it is necessary to create a model class that inherits from the NetProp class. This NetProp class is essentially a wrapper from cuTAGI and is described in detail in its [Tagi Network API](api/tagi-network.md) section. Thus, it is required to import this class.
 
 ```python
 from pytagi import NetProp
@@ -63,7 +63,7 @@ class MLP(NetProp):
 
 ## Regression MLP class
 
-This simple model has one input layer, one hidden layer and one output layer. The input layer will have a single variable, the hidden layer will have 50 hidden units and the output layer will have one variable. The activation function of the hidden layer will be ReLU and the batch size will be four. The observation noise's standard deviation and its minimum will be 0.06. When one wich to use a scheduler to decrease `sigma_v` over epochs, `sigma_v_min` should be choosen to be smaller than `sigma_v` (Note: this is commonly the case for CNN).
+This simple model has one input layer, one hidden layer and one output layer. The input layer will have a single variable, the hidden layer has 50 hidden units and the output layer has one variable. The activation function of the hidden layer is ReLU and the batch size is four. The observation noise's standard deviation and its minimum are 0.06 so the decaying scheduler is disabled. When one wich to use a scheduler to decrease `sigma_v` over epochs, `sigma_v_min` should be choosen to be smaller than `sigma_v` (Note: this is commonly the case for CNNs).
 
 ```python
 # Model

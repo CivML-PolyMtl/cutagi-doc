@@ -22,7 +22,7 @@
 {"@context":"https://schema.org","@type":"WebPage","description":"Documentation Website for cuTAGI","headline":"Prerequisites for Local Installation","url":"https://www.tagiml.com/guide/install.html"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=41ef9b6436ca28f9085f61aa832cc456dd43828f">
+    <link rel="stylesheet" href="/assets/css/style.css?v=67c9a0b32743a4bee5d60aab07eb065dd1c91511">
     <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
 
 <!-- Setup Google Analytics -->
@@ -48,11 +48,11 @@
   <li>CUDA toolkit (optional)</li>
 </ul>
 
-<h2 id="pytagi-installation"><code class="language-plaintext highlighter-rouge">pytagi</code> Installation</h2>
-<p><code class="language-plaintext highlighter-rouge">pytagi</code> is a Python wrapper of C++/CUDA backend for TAGI method. The developers can install either  <a href="#pypi-installation">distributed</a> or <a href="#local-installation">local</a> versions of <code class="language-plaintext highlighter-rouge">pytagi</code>. Currently <code class="language-plaintext highlighter-rouge">pytagi</code> only supports Python version &gt;=3.9 on both MacOS and Ubuntu.</p>
+<h2 id="pytagi-installation"><code class="language-plaintext highlighter-rouge">pyTAGI</code> Installation</h2>
+<p><code class="language-plaintext highlighter-rouge">pyTAGI</code> is a Python wrapper of C++/CUDA backend for TAGI method. The developers can install either the <a href="#pypi-installation">distributed</a> or <a href="#local-installation">local</a> versions of <code class="language-plaintext highlighter-rouge">pyTAGI</code>. Currently <code class="language-plaintext highlighter-rouge">pyTAGI</code> only supports Python version &gt;=3.9 on both MacOS and Ubuntu.</p>
 
 <h3 id="create-miniconda-environment">Create Miniconda Environment</h3>
-<p>We recommend installing miniconda for managing Python environment, yet <code class="language-plaintext highlighter-rouge">pytagi</code> works well with other alternatives.</p>
+<p>We recommend installing miniconda for managing Python environment, yet <code class="language-plaintext highlighter-rouge">pyTAGI</code> works well with other alternatives.</p>
 <ol>
   <li>Install miniconda by following these <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#system-requirements">instructions</a></li>
   <li>Create a conda environment
@@ -72,11 +72,11 @@
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> pip install -r requirements.txt
 </code></pre></div>    </div>
   </li>
-  <li>Install <code class="language-plaintext highlighter-rouge">pytagi</code>
+  <li>Install <code class="language-plaintext highlighter-rouge">pyTAGI</code>
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> pip install pytagi
 </code></pre></div>    </div>
   </li>
-  <li>Test <code class="language-plaintext highlighter-rouge">pytagi</code> package
+  <li>Test <code class="language-plaintext highlighter-rouge">pyTAGI</code> package
     <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> python <span class="nt">-m</span> python_examples.regression_runner
 </code></pre></div>    </div>
     <p>NOTE: This PyPI distributed version does not require the codebase in this repository. The developers can create their own applications (see <a href="python_examples">python_examples</a>).</p>
@@ -96,18 +96,18 @@
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> pip install -r requirements.txt
 </code></pre></div>    </div>
   </li>
-  <li>Install <code class="language-plaintext highlighter-rouge">pytagi</code> package
+  <li>Install <code class="language-plaintext highlighter-rouge">pyTAGI</code> package
     <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> pip <span class="nb">install</span> <span class="nb">.</span>
 </code></pre></div>    </div>
   </li>
-  <li>Test <code class="language-plaintext highlighter-rouge">pytagi</code> package
+  <li>Test <code class="language-plaintext highlighter-rouge">pyTAGI</code> package
     <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> python <span class="nt">-m</span> python_examples.regression_runner
 </code></pre></div>    </div>
   </li>
 </ol>
 
-<h2 id="cutagi-installation"><code class="language-plaintext highlighter-rouge">cutagi</code> Installation</h2>
-<p><code class="language-plaintext highlighter-rouge">cutagi</code> is the native version implemented in C++/CUDA for TAGI method. We highly recommend installing cuTAGI using Docker method to facilitate the installation.</p>
+<h2 id="cutagi-installation"><code class="language-plaintext highlighter-rouge">cuTAGI</code> Installation</h2>
+<p><code class="language-plaintext highlighter-rouge">cuTAGI</code> is the native version implemented in C++/CUDA for TAGI method. We highly recommend installing cuTAGI using Docker method to facilitate the installation.</p>
 
 <h3 id="docker-build">Docker Build</h3>
 <ol>

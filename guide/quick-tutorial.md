@@ -10,11 +10,11 @@ Copyright (c) 2023 Miquel Florensa & Luong-Ha Nguyen & James-A. Goulet. Some rig
 
 ## Introduction
 
-In this tutorial, we will see how to use pytagi to solve a simple regression problem. We will use a 1D toy dataset and a feedforward neural network (FNN) with a simple architecture.
+In this tutorial, we present how to use pyTAGI to perform a simple regression problem. We use a 1D toy dataset and a feedforward neural network (FNN) with a simple architecture.
 
 ## Define user input and data
 
-In this simple example, we will use a 1D toy dataset. The dataset is composed of 10 training samples and 100 test samples and can be found in the [github repository](https://github.com/lhnguyen102/cuTAGI/tree/main/data/toy_example).
+In this simple example, we will use a 1D toy dataset. The dataset is composed of 10 training and 100 test observations and can be found in the [github repository](https://github.com/lhnguyen102/cuTAGI/tree/main/data/toy_example).
 
 ```python
 # User-input
@@ -28,7 +28,7 @@ y_test_file = "./data/toy_example/y_test_1D.csv"
 
 ## Build Regression Model
 
-We will use a FNN with a simple architecture. We will use the RegressionMLP class already defined and consistent with this basic regression problem (you can find the class implementation [here](modules/models?id=regression-mlp-class)).
+We use a FNN with a simple architecture as defined in the RegressionMLP class (you can find the class implementation [here](modules/models?id=regression-mlp-class)).
 
 ```python
 # Model
@@ -39,7 +39,7 @@ If you want to use a different model, you can define your own class and make sur
 
 ## Data loader
 
-We will make use of the [RegressionDataLoader](modules/data-loader.md) class to load and process the data. The *process_data* function requires the input and output test and training files in a **csv** format.
+We use the [RegressionDataLoader](modules/data-loader.md) class to load and process the data. The *process_data* function requires the input and output test and training files in a **csv** format.
 
 ```python
 # Data loader
@@ -55,7 +55,7 @@ data_loader = reg_data_loader.process_data(x_train_file=x_train_file,
 
 ## Train and test the model
 
-Using the [regression class](modules/regression?id=regression-class) that makes use of TAGI, we will train and test the model. In order to perform the task we will also need to specify the number of epochs.
+Using the [regression class](modules/regression?id=regression-class), we train and test the model using TAGI. Note that in order to perform the task we need to specify the number of epochs.
 
 ```python
 # Optional: Visualize the test using visualizer.py
@@ -76,6 +76,6 @@ reg_task.predict(std_factor=3)
 
 ## Results
 
-Since we have created a vizualization object that we passed to the regression class, at the end of the execution we will be able to see the results of the prediction. The black line is the true function, the red line is the predicted function and the red zone is the confidence intervals.
+Since we have created a vizualization object that we passed to the regression class, at the end of the execution we plot the results of the predictions. The black line is the true function, the red line is the predicted expected values and the red region is the confidence interval.
 
 ![1D toy regression problem](../images/1D_toy_regression.png)

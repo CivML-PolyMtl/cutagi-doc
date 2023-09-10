@@ -54,7 +54,7 @@ datetime_test_file =  "./data/toy_time_series/test_sin_datetime.csv"
 
 ## 3. Create the model
 
-We will use a with a simple LSTM architecture as defined in the TimeSeriesLSTM class wich is suited for Time Series Forecasting. Find out more about the [TimeSeriesLSTM class](modules/models?id=lstm-for-time-series-forecasting).
+We use a with a simple LSTM architecture as defined in the TimeSeriesLSTM class which is suited for time series forecasting tasks. Find out more about the [TimeSeriesLSTM class](modules/models?id=lstm-for-time-series-forecasting).
 
 ```python
 # Model
@@ -67,7 +67,7 @@ net_prop = TimeSeriesLSTM(input_seq_len=input_seq_len,
 
 ## 4. Load the data
 
-We will make use of the [TimeSeriesDataloader](modules/data-loader?id=data-loader) class to load and process the data. The *process_data* function requires the input and output test and training files in a **csv** format.
+We use the [TimeSeriesDataloader](modules/data-loader?id=data-loader) class to load and process the data. The *process_data* function requires the input and output test and training files in a **csv** format.
 
 ```python
 # Data loader
@@ -86,7 +86,7 @@ data_loader = ts_data_loader.process_data(
 
 ## 5. Create visualizer
 
-In order to visualize the predictions of the regression we can use the PredictionViz class. This class will create a window with the true function, the predicted function and the confidence intervals.
+In order to visualize the predictions of the regression we use the PredictionViz class. This class creates a window with the true function, the predicted expected values and the confidence interval.
 
 ```python
 # Visualzier
@@ -97,7 +97,7 @@ viz = PredictionViz(task_name="forecasting", data_name="sin_signal")
 
 ## 6. Train and evaluate the model
 
-Using the [TimeSeriesForecaster class](modules/time-series-forecaster.md) that makes use of TAGI, we will train and test the model. When doing the prediction we can specify the standard deviation factor to calculate the confidence intervals.
+Using the [TimeSeriesForecaster class](modules/time-series-forecaster.md) we will train and test the model using TAGI. When doing the prediction we can specify the standard deviation factor defining the confidence interval.
 
 ```python
 # Train and test
@@ -117,8 +117,8 @@ At the end of the execution the results will be printed in the console as seen b
 > MSE           :  0.03  
 > Log-likelihood: -1.11
 
-?> If you have created the visualizarion object and passed it to the regression object, a new window will pop up with the results.
+?> If you have created the visualization object and passed it to the regression object, a new window will pop up with the results.
 
 ![Toy LSTM problem](../../images/toy_lstm.png)
 
-**The black line is the true function, the red line is the predicted function and the red zone is the confidence intervals.*
+**The black line is the true function, the red line is the predicted expected values and the red region is the confidence interval.*

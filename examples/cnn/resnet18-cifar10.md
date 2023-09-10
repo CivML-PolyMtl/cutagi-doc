@@ -4,7 +4,7 @@
 **Date:** 2023/05/05  
 **Description:** This example shows how to train a residual network to classify the CIFAR10 dataset.
 
-<a href="https://github.com/miquelflorensa/miquelflorensa.github.io/blob/main/code/resnet_cifar10_classification_runner.py" class="github-link">
+<a href="https://github.com/CivML-PolyMtl/cutagi-doc/tree/main/code/resnet_cifar10_classification_runner.py" class="github-link">
   <div class="github-icon-container">
     <img src="../../images/GitHub-Mark.png" alt="GitHub" height="32" width="64">
   </div>
@@ -26,7 +26,7 @@ from pytagi import NetProp
 
 ```
 
-?>Notice that this modules are described [here](modules/modules.md) and the source code is in the *python_examples* directory, in case you have the modules in another directory you must change this paths.
+?>Notice that these modules are described [here](modules/modules.md) and the source code is in the *python_examples* directory, in case you have the modules in another directory you must change this paths.
 
 ## 2. Prepare the data
 
@@ -40,15 +40,15 @@ x_test_file = "./data/cifar/x_test.csv"
 y_test_file = "./data/cifar/y_test.csv"
 ```
 
-**You can find the used data in the [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html) website.*
+**You can find the data used in the [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html) website.*
 
 ## 3. Create the model
 
-In this example we are going to use a [Resnet18 architecture](https://arxiv.org/abs/1512.03385).
+In this example we use a [Resnet18 architecture](https://arxiv.org/abs/1512.03385).
 
 ```python
 class ResnetCifarMLP(NetProp):
-    """Multi-layer perceptron for cifar classificaiton."""
+    """Resnet18 for cifar classificaiton."""
 
     def __init__(self) -> None:
         super().__init__()
@@ -81,7 +81,7 @@ net_prop = ResnetCifarMLP()
 
 ## 4. Load the data
 
-The next step is to load the data. We will use the [ClassificationDataloader class](modules/data-loader?id=data-loader) to load the data and we will pass the batch size and the data paths to the class.
+The next step is to load the data. We use the [ClassificationDataloader class](modules/data-loader?id=data-loader) to load the data and we pass the batch size and the data paths to the class.
 
 ```python
 # Data loader
@@ -94,7 +94,7 @@ data_loader = class_data_loader.process_data(x_train_file=x_train_file,
 
 ## 5. Create the classification object
 
-Once we processed the data, we can create the classifier object. We will pass the number of epochs, the data loader, the network properties and the number of classes to the class. In this case the number of classes is 10 because we are classifying the CIFAR10 dataset.
+Once we processed the data, we create the classifier object. We pass the number of epochs, the data loader, the network properties and the number of classes to the class. In this case the number of classes is 10 because we are are working with the CIFAR10 dataset.
 
 ```python
 # Train and test
@@ -108,7 +108,7 @@ clas_task = Classifier(num_epochs=num_epochs,
 
 ## 6. Train and evaluate the model
 
-Finally, we can train and evaluate the model. We will call the train and predict methods of the classifier object.
+Finally, we train and evaluate the model. We call the train and predict methods of the classifier object.
 
 ```python
   clas_task.train()
@@ -117,7 +117,7 @@ Finally, we can train and evaluate the model. We will call the train and predict
 
 ## 7. Results
 
-In this section we will see the performace of the model using cuTAGI and we will compare the results with the results of a backpropagation model.
+In this section we review the performace of the model using cuTAGI and we compare the results with the results of a backprop-trained model.
 
 |  Model   | Error Rate [%] |       | Hyperparameters |       |
 | :------: | :------------: | :---: | :-------------: | :---: |

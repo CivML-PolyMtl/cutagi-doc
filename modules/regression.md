@@ -1,6 +1,6 @@
 # Regression class
 
-The `Regression` class is responsible for performing regression using the TAGI algorithm.
+The `Regression` class is responsible for performing regression tasks using the TAGI method.
 
 <a href="https://github.com/lhnguyen102/cuTAGI/blob/main/python_examples/regression.py" class="github-link">
   <div class="github-icon-container">
@@ -44,7 +44,7 @@ def train(self) -> None:
     """Train the network using TAGI"""
 ```
 
-Trains the network using TAGI algorithm. It performs the following steps:
+Trains the network using the TAGI method. It performs the following steps:
 1. Initializes inputs and outputs.
 2. Performs training iterations for each epoch.
 3. Updates the network parameters and hidden states.
@@ -59,7 +59,7 @@ def predict(self, std_factor: int = 1) -> None:
     """Make prediction using TAGI"""
 ```
 
-Makes predictions using TAGI algorithm. It performs the following steps:
+Makes predictions using the TAGI method. It performs the following steps:
 1. Initializes inputs.
 2. Makes predictions using the trained network.
 3. Unnormalizes the predictions.

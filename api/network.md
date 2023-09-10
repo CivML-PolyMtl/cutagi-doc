@@ -1,6 +1,6 @@
 # The TagiNetwork class
 
-Python frontend calling TAGI network in C++/CUDA backend.
+Python front-end calling TAGI network in C++/CUDA backend.
 
 <a href="https://github.com/miquelflorensa/cuTAGI/blob/main/pytagi/tagi_network.py" class="github-link">
   <div class="github-icon-container">
@@ -13,7 +13,7 @@ Python frontend calling TAGI network in C++/CUDA backend.
 
 ## Attributes
 
-- `network`: Network wrapper that calls the tagi network from the backend
+- `network`: Network wrapper that calls the tagi network from the back-end
 - `net_prop`: Network properties
 
 ## *constructor* method
@@ -61,8 +61,8 @@ def feed_forward(self, x_batch: np.ndarray,
 
 **Parameters**
 - `x_batch`: Input data as a NumPy array.
-- `Sx_batch`: Diagonal variance of input data as a NumPy array.
-- `Sx_f_batch`: Full variance of input data as a NumPy array.
+- `Sx_batch`: Diagonal variances of input data as a NumPy array.
+- `Sx_f_batch`: Full covariance matrix of input data as a NumPy array.
 
 ## *connected_feed_forward* method
 
