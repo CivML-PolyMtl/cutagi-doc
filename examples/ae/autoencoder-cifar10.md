@@ -4,7 +4,7 @@
 **Date:** 2023/05/05  
 **Description:** This example shows how to train an autoencoder to reconstruct the CIFAR10 images.
 
-<a href="https://github.com/miquelflorensa/miquelflorensa.github.io/blob/main/code/cifar10_autoencoder_runner.py" class="github-link">
+<a href="https://github.com/CivML-PolyMtl/cutagi-doc/tree/main/code/cifar10_autoencoder_runner.py" class="github-link">
   <div class="github-icon-container">
     <img src="../../images/GitHub-Mark.png" alt="GitHub" height="32" width="64">
   </div>

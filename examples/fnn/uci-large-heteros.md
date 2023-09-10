@@ -4,7 +4,7 @@
 **Date:** 2023/05/23  
 **Description:** This example shows how to perform a regression task on the Boston housing prices dataset using a FNN with heteroscedasticity.  
 
-<a href="https://github.com/miquelflorensa/miquelflorensa.github.io/blob/main/code/uci_heteros_regression_runner.py" class="github-link">
+<a href="https://github.com/CivML-PolyMtl/cutagi-doc/tree/main/code/uci_heteros_regression_runner.py" class="github-link">
   <div class="github-icon-container">
     <img src="../../images/GitHub-Mark.png" alt="GitHub" height="32" width="64">
   </div>
