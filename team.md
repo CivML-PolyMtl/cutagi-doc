@@ -1,5 +1,5 @@
 # Who are we?
-The py/cuTAGI library has beed developed by
+The py/cuTAGI library has been developed by
 - Luong-Ha Nguyen    &nbsp;&ensp;(Lead developer & administrator)
 - Miquel Florensa    &ensp;&ensp;&ensp;&ensp;(Unit tests & examples) 
 - James-A. Goulet    &ensp;&ensp;&ensp;(Methodological development)
